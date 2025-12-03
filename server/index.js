@@ -9,6 +9,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Debug logger - TEMPORARY (helps see requests in Railway logs)
+app.use((req, res, next) => {
+  console.log('REQ', req.method, req.url);
+  next();
+});
+
 // Serve client static files (assumes client/ is sibling to server/)
 const clientDir = path.join(__dirname, '..', 'client');
 // serve static files but do NOT auto-serve index.html; let our routes handle "/"
@@ -35,6 +41,14 @@ app.post('/api/login', (req, res) => {
   const user = { id: email || `u_${Date.now()}`, name: email?.split('@')[0] || 'Guest', email: email || '' };
   // In real app: validate credentials, issue token/session
   res.json({ user });
+});
+
+// SPA fallback - must come AFTER API routes and BEFORE socket handlers / listen
+app.get('*', (req, res) => {
+  if (req.method === 'GET' && !req.path.startsWith('/api')) {
+    return res.sendFile(path.join(clientDir, 'auth.html'));
+  }
+  res.status(404).send('Not Found');
 });
 
 // Create HTTP + Socket.IO server
@@ -126,13 +140,6 @@ io.on('connection', (socket) => {
     socket.emit('whoami', { id: socket.id, rooms: Array.from(socket.rooms) });
   });
 });
-
-// const PORT = process.env.PORT || 3000;
-// httpServer.listen(PORT, () => {
-//   console.log(`Server listening on http://localhost:${PORT} (serving client from ${clientDir})`);
-// });
-
-// ... all code above unchanged ...
 
 const PORT = process.env.PORT || 3000;
 
