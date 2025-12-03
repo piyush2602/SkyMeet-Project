@@ -1,0 +1,26 @@
+[
+  {
+    "id": "u_miov5jra1b5pmr",
+    "email": "piyushagrawal2602@gmail.com",
+    "password": "12345678",
+    "name": "Piyush"
+  },
+  {
+    "id": "u_miov67mgyoar83",
+    "email": "aman@gmail.com",
+    "password": "1234",
+    "name": "Aman"
+  },
+  {
+    "id": "u_miovce4zn9cqys",
+    "email": "sumit@gmail.com",
+    "password": "1234",
+    "name": "Sumit"
+  },
+  {
+    "id": "u_miovima3davqgh",
+    "email": "aman@gmail,com",
+    "password": "1234",
+    "name": "Amit"
+  }
+]

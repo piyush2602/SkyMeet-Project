@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SkyMeet</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="app-header">
+        <h1>SkyMeet</h1>
+        <p class="subtitle">Lightweight video meetings, Zoom-like experience.</p>
+      </header>
+
+      <main class="app-main">
+        <section class="panel auth-panel">
+          <h2>Account & Meeting</h2>
+
+          <div class="auth-section">
+            <h3>Sign up / Log in</h3>
+            <label>
+              Name
+              <input id="authName" type="text" placeholder="Your full name" />
+            </label>
+            <label>
+              Email
+              <input id="authEmail" type="email" placeholder="you@example.com" />
+            </label>
+            <label>
+              Password
+              <input id="authPassword" type="password" placeholder="Password" />
+            </label>
+            <div class="buttons-row">
+              <button id="signupBtn" class="btn secondary">Sign Up</button>
+              <button id="loginBtn" class="btn primary">Log In</button>
+            </div>
+            <p id="authStatus" class="status"></p>
+            <p id="currentUser" class="status"></p>
+          </div>
+
+          <hr class="divider" />
+
+          <h3>Join or Create a Meeting</h3>
+          <p class="status">Please sign up or log in before joining a meeting.</p>
+          <label>
+            Display name
+            <input id="displayName" type="text" placeholder="Your name" disabled />
+          </label>
+          <label>
+            Room ID
+            <input id="roomId" type="text" placeholder="e.g. team-standup" disabled />
+          </label>
+          <div class="buttons-row">
+            <button id="createRoomBtn" class="btn primary" disabled>Create New Room</button>
+            <button id="joinRoomBtn" class="btn secondary" disabled>Join Room</button>
+          </div>
+          <p id="status" class="status"></p>
+        </section>
+
+        <section class="panel video-panel hidden" id="meetingPanel">
+          <div class="meeting-header">
+            <h2 id="meetingTitle">Meeting</h2>
+            <span id="roomLabel" class="room-label"></span>
+          </div>
+
+          <div class="video-grid" id="videoGrid">
+            <!-- Local and remote video elements injected here -->
+          </div>
+
+          <div class="controls">
+            <button id="toggleMicBtn" class="btn control">Mute</button>
+            <button id="toggleCameraBtn" class="btn control">Stop Video</button>
+            <button id="leaveCallBtn" class="btn control danger">Leave Call</button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" crossorigin="anonymous"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
