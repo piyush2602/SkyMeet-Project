@@ -127,7 +127,17 @@ io.on('connection', (socket) => {
   });
 });
 
+// const PORT = process.env.PORT || 3000;
+// httpServer.listen(PORT, () => {
+//   console.log(`Server listening on http://localhost:${PORT} (serving client from ${clientDir})`);
+// });
+
+// ... all code above unchanged ...
+
 const PORT = process.env.PORT || 3000;
-httpServer.listen(PORT, () => {
-  console.log(`Server listening on http://localhost:${PORT} (serving client from ${clientDir})`);
+
+// Bind to 0.0.0.0 so Railway (and other hosts) can reach the server externally.
+// Process.env.PORT is provided by Railway.
+httpServer.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server listening on port ${PORT} (serving client from ${clientDir})`);
 });
