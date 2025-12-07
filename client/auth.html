@@ -1,158 +1,314 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>SkyMeet — Welcome</title>
+  <link rel="icon" type="image/png" href="favicon.png">
 
- 
+
   <style>
-    :root{
-      --bg-1: #0b1220;           /* deep background */
+    :root {
+      --bg-1: #0b1220;
+      /* deep background */
       --bg-2: #0f1724;
-      --panel: rgba(255,255,255,0.03);
+      --panel: rgba(255, 255, 255, 0.03);
       --card: #0f1724;
       --muted: #9aa6b2;
       --accent: #2a7dff;
-      --accent-700:#185fd6;
+      --accent-700: #185fd6;
       --danger: #ff5550;
-      --glass: rgba(255,255,255,0.04);
+      --glass: rgba(255, 255, 255, 0.04);
       --radius-lg: 14px;
       --radius-md: 10px;
-      --shadow-1: 0 10px 40px rgba(2,6,23,0.6);
+      --shadow-1: 0 10px 40px rgba(2, 6, 23, 0.6);
       font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     }
 
     /* base */
-    html,body{height:100%;margin:0}
-    body{
-      background: radial-gradient(1200px 400px at 10% 10%, rgba(42,125,255,0.06) 0%, transparent 8%),
-                  linear-gradient(180deg, var(--bg-1), var(--bg-2));
-      color:#e6f0fb;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:32px;
-      box-sizing:border-box;
+    html,
+    body {
+      height: 100%;
+      margin: 0
+    }
+
+    body {
+      background: radial-gradient(1200px 400px at 10% 10%, rgba(42, 125, 255, 0.06) 0%, transparent 8%),
+        linear-gradient(180deg, var(--bg-1), var(--bg-2));
+      color: #e6f0fb;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+      box-sizing: border-box;
     }
 
     /* container centers card like Zoom landing */
-    .container{
-      width:100%;
-      max-width:1100px;
-      display:grid;
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      display: grid;
       grid-template-columns: 1fr 420px;
-      gap:28px;
-      align-items:start;
-      align-content:center;
+      gap: 28px;
+      align-items: start;
+      align-content: center;
     }
 
     /* hero left */
-    .hero{
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:16px;
-      padding:34px;
+    .hero {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+      border-radius: 16px;
+      padding: 34px;
       box-shadow: var(--shadow-1);
-      border: 1px solid rgba(255,255,255,0.03);
-      min-height:320px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      min-height: 320px;
     }
 
-    .brand{ display:flex; align-items:center; gap:16px; justify-content:space-between; }
-    .logo{
-      width:64px;height:64px;border-radius:12px;
-      display:flex;align-items:center;justify-content:center;
-      background:linear-gradient(180deg,var(--accent),var(--accent-700));
-      color:#fff;font-weight:800;font-size:20px;box-shadow:0 10px 30px rgba(26,95,232,0.18);
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      justify-content: space-between;
     }
 
-    .title{ font-size:32px; margin:0; font-weight:800; color:#fff; letter-spacing:-0.2px; }
-    .subtitle{ color:var(--muted); margin:6px 0 20px 0; font-size:15px }
+    .logo {
+      width: 64px;
+      height: 64px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg, var(--accent), var(--accent-700));
+      color: #fff;
+      font-weight: 800;
+      font-size: 20px;
+      box-shadow: 0 10px 30px rgba(26, 95, 232, 0.18);
+    }
+
+    .title {
+      font-size: 32px;
+      margin: 0;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.2px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin: 6px 0 20px 0;
+      font-size: 15px
+    }
 
     /* split content vibe (left details right card) */
-    .hero-inner{
-      margin-top:18px;
-      display:flex;
-      gap:18px;
-      align-items:flex-start;
+    .hero-inner {
+      margin-top: 18px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
     }
 
-    .info-block{
-      color:var(--muted);
-      font-size:15px;
-      line-height:1.5;
-      max-width:720px;
+    .info-block {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.5;
+      max-width: 720px;
     }
 
-    
-    .card{
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:16px;
-      padding:22px;
-      box-shadow: 0 18px 50px rgba(2,6,23,0.55);
-      border: 1px solid rgba(255,255,255,0.03);
-      display:flex;
-      flex-direction:column;
-      gap:14px;
+
+    .card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: 0 18px 50px rgba(2, 6, 23, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
 
-    .card h3{ color:#fff; margin:0; font-size:18px }
-    .card .small{ color:var(--muted); font-size:13px }
-
-    label{ font-size:13px; margin-top:6px; color:var(--muted); display:block }
-    input[type="text"], input[type="email"], input[type="password"]{
-      width:100%; padding:12px 14px; margin-top:8px;
-      border-radius:10px; border:1px solid rgba(255,255,255,0.04);
-      background: rgba(255,255,255,0.02); color:#e6f0fb; font-size:14px;
-      outline:none;
+    .card h3 {
+      color: #fff;
+      margin: 0;
+      font-size: 18px
     }
-    input::placeholder{ color: rgba(230,240,251,0.55) }
-    input:focus{ box-shadow: 0 8px 26px rgba(42,125,255,0.08); border-color: rgba(42,125,255,0.14) }
+
+    .card .small {
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    label {
+      font-size: 13px;
+      margin-top: 6px;
+      color: var(--muted);
+      display: block
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 14px;
+      margin-top: 8px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      background: rgba(255, 255, 255, 0.02);
+      color: #e6f0fb;
+      font-size: 14px;
+      outline: none;
+    }
+
+    input::placeholder {
+      color: rgba(230, 240, 251, 0.55)
+    }
+
+    input:focus {
+      box-shadow: 0 8px 26px rgba(42, 125, 255, 0.08);
+      border-color: rgba(42, 125, 255, 0.14)
+    }
 
     /* primary buttons */
-    .big-btn{
-      display:block;width:100%;padding:13px;border-radius:10px;border:none;
-      background: linear-gradient(180deg,var(--accent),var(--accent-700));
-      color:#fff;font-weight:700;font-size:15px;cursor:pointer;
-      box-shadow: 0 12px 36px rgba(26,95,232,0.16);
+    .big-btn {
+      display: block;
+      width: 100%;
+      padding: 13px;
+      border-radius: 10px;
+      border: none;
+      background: linear-gradient(180deg, var(--accent), var(--accent-700));
+      color: #fff;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 12px 36px rgba(26, 95, 232, 0.16);
       transition: transform .12s ease, box-shadow .12s ease, opacity .12s;
     }
-    .big-btn:hover{ transform: translateY(-3px) }
 
-    .ghost-btn{
-      display:block;width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.05);
-      background: transparent;color:var(--muted);font-weight:600;font-size:14px; cursor:pointer;
+    .big-btn:hover {
+      transform: translateY(-3px)
     }
-    .row{display:flex;gap:12px}
 
-    .helper{display:flex;gap:10px;align-items:center}
-    .helper .link{ color:var(--accent); cursor:pointer; font-weight:600 }
+    .ghost-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: transparent;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+    }
 
-    .foot{ color:var(--muted); font-size:13px }
+    .row {
+      display: flex;
+      gap: 12px
+    }
+
+    .helper {
+      display: flex;
+      gap: 10px;
+      align-items: center
+    }
+
+    .helper .link {
+      color: var(--accent);
+      cursor: pointer;
+      font-weight: 600
+    }
+
+    .foot {
+      color: var(--muted);
+      font-size: 13px
+    }
 
     /* modal */
-    .modal-backdrop{ position:fixed; inset:0; background: rgba(2,6,23,0.6); display:none; align-items:center; justify-content:center; z-index:9999 }
-    .modal{ width:420px; border-radius:12px; padding:18px; background: linear-gradient(180deg,#0b1220,#0f1724); border:1px solid rgba(255,255,255,0.03); box-shadow: 0 18px 40px rgba(2,6,23,0.6) }
-    .modal h3{ margin:0 0 8px 0; color:#fff }
-    .modal p{ margin:0 0 12px 0; color:var(--muted) }
-    .modal .actions{ display:flex; gap:10px; justify-content:flex-end; margin-top:8px }
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999
+    }
 
-    .close-x{ position:absolute; right:18px; top:12px; background:transparent; border:none; color:var(--muted); font-size:18px; cursor:pointer }
+    .modal {
+      width: 420px;
+      border-radius: 12px;
+      padding: 18px;
+      background: linear-gradient(180deg, #0b1220, #0f1724);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      box-shadow: 0 18px 40px rgba(2, 6, 23, 0.6)
+    }
+
+    .modal h3 {
+      margin: 0 0 8px 0;
+      color: #fff
+    }
+
+    .modal p {
+      margin: 0 0 12px 0;
+      color: var(--muted)
+    }
+
+    .modal .actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      margin-top: 8px
+    }
+
+    .close-x {
+      position: absolute;
+      right: 18px;
+      top: 12px;
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-size: 18px;
+      cursor: pointer
+    }
 
     /* small responsive */
-    @media (max-width:980px){
-      .container{ grid-template-columns: 1fr; padding:18px; max-width:720px }
-      .hero{ order:2 }
-      .card{ order:1; width:100% }
+    @media (max-width:980px) {
+      .container {
+        grid-template-columns: 1fr;
+        padding: 18px;
+        max-width: 720px
+      }
+
+      .hero {
+        order: 2
+      }
+
+      .card {
+        order: 1;
+        width: 100%
+      }
     }
-    @media (max-width:480px){
-      body{ padding:12px }
-      .logo{ width:56px; height:56px; font-size:18px }
-      .title{ font-size:24px }
+
+    @media (max-width:480px) {
+      body {
+        padding: 12px
+      }
+
+      .logo {
+        width: 56px;
+        height: 56px;
+        font-size: 18px
+      }
+
+      .title {
+        font-size: 24px
+      }
     }
   </style>
 </head>
+
 <body>
   <div class="container">
 
@@ -236,176 +392,177 @@
 
   <!-- Small inline JS wiring (keeps your existing behavior) -->
   <script>
-/* ===== Improved Auth wiring for auth.html =====
-   Replaces previous inline script. Validates Sign Up, Log In, and Guest flow.
-*/
+    /* ===== Improved Auth wiring for auth.html =====
+       Replaces previous inline script. Validates Sign Up, Log In, and Guest flow.
+    */
 
-(function(){
-  // Modal elements
-  const modalBackdrop = document.getElementById('modalBackdrop');
-  const modalTitle = document.getElementById('modalTitle');
-  const modalSubtitle = document.getElementById('modalSubtitle');
-  const modalName = document.getElementById('modalName');
-  const modalEmail = document.getElementById('modalEmail');
-  const modalPassword = document.getElementById('modalPassword');
-  const modalSubmit = document.getElementById('modalSubmit');
-  const modalCancel = document.getElementById('modalCancel');
-  const modalClose = document.getElementById('modalClose');
+    (function () {
+      // Modal elements
+      const modalBackdrop = document.getElementById('modalBackdrop');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalSubtitle = document.getElementById('modalSubtitle');
+      const modalName = document.getElementById('modalName');
+      const modalEmail = document.getElementById('modalEmail');
+      const modalPassword = document.getElementById('modalPassword');
+      const modalSubmit = document.getElementById('modalSubmit');
+      const modalCancel = document.getElementById('modalCancel');
+      const modalClose = document.getElementById('modalClose');
 
-  // Page controls
-  const signupBtn = document.getElementById('signupBtn');
-  const loginBtn = document.getElementById('loginBtn');
-  const gotoMeetingBtn = document.getElementById('gotoMeetingBtn');
+      // Page controls
+      const signupBtn = document.getElementById('signupBtn');
+      const loginBtn = document.getElementById('loginBtn');
+      const gotoMeetingBtn = document.getElementById('gotoMeetingBtn');
 
-  const quickRoomInput = document.getElementById('quickRoomInput');
-  const quickJoinBtn = document.getElementById('quickJoinBtn');
-  const quickCreateBtn = document.getElementById('quickCreateBtn');
-  const nameInput = document.getElementById('nameInput');
+      const quickRoomInput = document.getElementById('quickRoomInput');
+      const quickJoinBtn = document.getElementById('quickJoinBtn');
+      const quickCreateBtn = document.getElementById('quickCreateBtn');
+      const nameInput = document.getElementById('nameInput');
 
-  // Utility: show modal in given mode: 'signup' or 'login'
-  function openModal(mode = 'signup') {
-    modalBackdrop.style.display = 'flex';
-    modalBackdrop.setAttribute('aria-hidden','false');
-    modalSubmit.dataset.mode = mode;
+      // Utility: show modal in given mode: 'signup' or 'login'
+      function openModal(mode = 'signup') {
+        modalBackdrop.style.display = 'flex';
+        modalBackdrop.setAttribute('aria-hidden', 'false');
+        modalSubmit.dataset.mode = mode;
 
-    if (mode === 'signup') {
-      modalTitle.textContent = 'Sign Up';
-      modalSubtitle.textContent = 'Create an account to keep your display name.';
-      modalSubmit.textContent = 'Create';
-      modalName.value = nameInput.value || '';
-      modalEmail.value = '';
-      modalPassword.value = '';
-    } else {
-      modalTitle.textContent = 'Log In';
-      modalSubtitle.textContent = 'Enter your credentials.';
-      modalSubmit.textContent = 'Log In';
-      modalName.value = nameInput.value || '';
-      modalEmail.value = '';
-      modalPassword.value = '';
-    }
-    modalName.focus();
-  }
+        if (mode === 'signup') {
+          modalTitle.textContent = 'Sign Up';
+          modalSubtitle.textContent = 'Create an account to keep your display name.';
+          modalSubmit.textContent = 'Create';
+          modalName.value = nameInput.value || '';
+          modalEmail.value = '';
+          modalPassword.value = '';
+        } else {
+          modalTitle.textContent = 'Log In';
+          modalSubtitle.textContent = 'Enter your credentials.';
+          modalSubmit.textContent = 'Log In';
+          modalName.value = nameInput.value || '';
+          modalEmail.value = '';
+          modalPassword.value = '';
+        }
+        modalName.focus();
+      }
 
-  function closeModal() {
-    modalBackdrop.style.display = 'none';
-    modalBackdrop.setAttribute('aria-hidden','true');
-  }
+      function closeModal() {
+        modalBackdrop.style.display = 'none';
+        modalBackdrop.setAttribute('aria-hidden', 'true');
+      }
 
-  modalCancel.addEventListener('click', closeModal);
-  modalClose.addEventListener('click', closeModal);
-  modalBackdrop.addEventListener('click', (e) => {
-    if (e.target === modalBackdrop) closeModal();
-  });
+      modalCancel.addEventListener('click', closeModal);
+      modalClose.addEventListener('click', closeModal);
+      modalBackdrop.addEventListener('click', (e) => {
+        if (e.target === modalBackdrop) closeModal();
+      });
 
-  // Save a user object into localStorage
-  function saveUserToLocal(user) {
-    localStorage.setItem('sky_user', JSON.stringify(user));
-  }
+      // Save a user object into localStorage
+      function saveUserToLocal(user) {
+        localStorage.setItem('sky_user', JSON.stringify(user));
+      }
 
-  // Get stored user (single-user mock)
-  function getSavedUser() {
-    try {
-      return JSON.parse(localStorage.getItem('sky_user') || 'null');
-    } catch (e) {
-      return null;
-    }
-  }
+      // Get stored user (single-user mock)
+      function getSavedUser() {
+        try {
+          return JSON.parse(localStorage.getItem('sky_user') || 'null');
+        } catch (e) {
+          return null;
+        }
+      }
 
-  // Basic email validation
-  function isEmail(s) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s || '');
-  }
+      // Basic email validation
+      function isEmail(s) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s || '');
+      }
 
-  // Modal submit handler: handles both signup and login
-  modalSubmit.addEventListener('click', async (ev) => {
-    ev.preventDefault();
-    const mode = modalSubmit.dataset.mode || 'signup';
-    const name = (modalName.value || '').trim();
-    const email = (modalEmail.value || '').trim();
-    const password = (modalPassword.value || '').trim();
+      // Modal submit handler: handles both signup and login
+      modalSubmit.addEventListener('click', async (ev) => {
+        ev.preventDefault();
+        const mode = modalSubmit.dataset.mode || 'signup';
+        const name = (modalName.value || '').trim();
+        const email = (modalEmail.value || '').trim();
+        const password = (modalPassword.value || '').trim();
 
-    if (mode === 'signup') {
-      if (!name) { alert('Please enter your full name.'); modalName.focus(); return; }
-      if (!email || !isEmail(email)) { alert('Please enter a valid email.'); modalEmail.focus(); return; }
-      if (!password || password.length < 4) { alert('Please enter a password (min 4 characters).'); modalPassword.focus(); return; }
+        if (mode === 'signup') {
+          if (!name) { alert('Please enter your full name.'); modalName.focus(); return; }
+          if (!email || !isEmail(email)) { alert('Please enter a valid email.'); modalEmail.focus(); return; }
+          if (!password || password.length < 4) { alert('Please enter a password (min 4 characters).'); modalPassword.focus(); return; }
 
-      const user = { id: email, name, email };
-      saveUserToLocal(user);
+          const user = { id: email, name, email };
+          saveUserToLocal(user);
 
-      closeModal();
-      localStorage.setItem('sky_user', JSON.stringify(user));
-      setTimeout(() => { window.location.href = '/lobby'; }, 150);
-      return;
-    }
+          closeModal();
+          localStorage.setItem('sky_user', JSON.stringify(user));
+          setTimeout(() => { window.location.href = '/lobby'; }, 150);
+          return;
+        }
 
-    if (!email || !isEmail(email)) { alert('Please enter a valid email.'); modalEmail.focus(); return; }
-    if (!password) { alert('Please enter your password.'); modalPassword.focus(); return; }
+        if (!email || !isEmail(email)) { alert('Please enter a valid email.'); modalEmail.focus(); return; }
+        if (!password) { alert('Please enter your password.'); modalPassword.focus(); return; }
 
-    const stored = getSavedUser();
-    if (!stored) {
-      const ok = confirm('No account found on this browser. Would you like to create one now?');
-      if (ok) { closeModal(); openModal('signup'); }
-      return;
-    }
+        const stored = getSavedUser();
+        if (!stored) {
+          const ok = confirm('No account found on this browser. Would you like to create one now?');
+          if (ok) { closeModal(); openModal('signup'); }
+          return;
+        }
 
-    if (stored.email && stored.email.toLowerCase() === email.toLowerCase()) {
-      closeModal();
-      const user = { id: stored.id || email, name: stored.name || modalName.value || 'User', email };
-      saveUserToLocal(user);
-      setTimeout(()=> { window.location.href = '/lobby'; }, 150);
-    } else {
-      alert('Login failed: wrong email or no account exists for this email on this browser.');
-      modalEmail.focus();
-    }
-  });
+        if (stored.email && stored.email.toLowerCase() === email.toLowerCase()) {
+          closeModal();
+          const user = { id: stored.id || email, name: stored.name || modalName.value || 'User', email };
+          saveUserToLocal(user);
+          setTimeout(() => { window.location.href = '/lobby'; }, 150);
+        } else {
+          alert('Login failed: wrong email or no account exists for this email on this browser.');
+          modalEmail.focus();
+        }
+      });
 
-  // Buttons wiring
-  signupBtn.addEventListener('click', () => openModal('signup'));
-  loginBtn.addEventListener('click', () => openModal('login'));
+      // Buttons wiring
+      signupBtn.addEventListener('click', () => openModal('signup'));
+      loginBtn.addEventListener('click', () => openModal('login'));
 
-  gotoMeetingBtn.addEventListener('click', () => {
-    const name = (nameInput.value && nameInput.value.trim()) || 'Guest';
-    const user = { id: 'guest_' + Date.now(), name, email: '' };
-    saveUserToLocal(user);
-    window.location.href = '/lobby';
-  });
+      gotoMeetingBtn.addEventListener('click', () => {
+        const name = (nameInput.value && nameInput.value.trim()) || 'Guest';
+        const user = { id: 'guest_' + Date.now(), name, email: '' };
+        saveUserToLocal(user);
+        window.location.href = '/lobby';
+      });
 
-  quickJoinBtn && quickJoinBtn.addEventListener('click', () => {
-    const room = quickRoomInput.value.trim();
-    if (!room) return alert('Enter a Room ID to join');
-    const name = (nameInput.value && nameInput.value.trim()) || 'Guest';
-    saveUserToLocal({ id: 'guest_' + Date.now(), name, email: '' });
-    localStorage.setItem('sky_meeting', JSON.stringify({ room, displayName: name }));
-    window.location.href = '/room/' + encodeURIComponent(room);
-  });
+      quickJoinBtn && quickJoinBtn.addEventListener('click', () => {
+        const room = quickRoomInput.value.trim();
+        if (!room) return alert('Enter a Room ID to join');
+        const name = (nameInput.value && nameInput.value.trim()) || 'Guest';
+        saveUserToLocal({ id: 'guest_' + Date.now(), name, email: '' });
+        localStorage.setItem('sky_meeting', JSON.stringify({ room, displayName: name }));
+        window.location.href = '/room/' + encodeURIComponent(room);
+      });
 
-  quickCreateBtn && quickCreateBtn.addEventListener('click', () => {
-    const room = Math.random().toString(36).slice(2,9);
-    const name = (nameInput.value && nameInput.value.trim()) || 'Host';
-    saveUserToLocal({ id: 'user_' + Date.now(), name, email: '' });
-    localStorage.setItem('sky_meeting', JSON.stringify({ room, displayName: name }));
-    window.location.href = '/room/' + encodeURIComponent(room);
-  });
+      quickCreateBtn && quickCreateBtn.addEventListener('click', () => {
+        const room = Math.random().toString(36).slice(2, 9);
+        const name = (nameInput.value && nameInput.value.trim()) || 'Host';
+        saveUserToLocal({ id: 'user_' + Date.now(), name, email: '' });
+        localStorage.setItem('sky_meeting', JSON.stringify({ room, displayName: name }));
+        window.location.href = '/room/' + encodeURIComponent(room);
+      });
 
-  nameInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      gotoMeetingBtn.click();
-    }
-  });
+      nameInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          gotoMeetingBtn.click();
+        }
+      });
 
-  document.getElementById('learnMore').addEventListener('click', () => {
-    alert('SkyMeet: a minimal WebRTC demo. For production, replace local auth with a server-backed auth and database.');
-  });
+      document.getElementById('learnMore').addEventListener('click', () => {
+        alert('SkyMeet: a minimal WebRTC demo. For production, replace local auth with a server-backed auth and database.');
+      });
 
-  (function prefillUser() {
-    try {
-      const u = JSON.parse(localStorage.getItem('sky_user') || 'null');
-      if (u && u.name) nameInput.value = u.name;
-    } catch(e){}
-  })();
+      (function prefillUser() {
+        try {
+          const u = JSON.parse(localStorage.getItem('sky_user') || 'null');
+          if (u && u.name) nameInput.value = u.name;
+        } catch (e) { }
+      })();
 
-  console.log('Auth script loaded.');
-})();
-</script>
+      console.log('Auth script loaded.');
+    })();
+  </script>
 </body>
+
 </html>
