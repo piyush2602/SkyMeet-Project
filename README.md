@@ -1,100 +1,257 @@
-# SkyMeet
+<div align="center">
 
-SkyMeet is a full-stack video conferencing web application with a light, Zoom-like interface.
+# 🎥 SkyMeet - Video Conferencing Platform
 
-## Core features
-- User authentication with login and sign up pages
-- Join/create video meetings
-- Mute/unmute microphone button
-- Turn camera on/off button
-- White and blue light theme inspired by Zoom
+[![Live Demo](https://img.shields.io/badge/Live-Demo-success?style=for-the-badge&logo=render)](https://skymeet-project.onrender.com)
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+[![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
+[![Socket.io](https://img.shields.io/badge/Socket.io-010101?style=for-the-badge&logo=socketdotio&logoColor=white)](https://socket.io/)
+[![WebRTC](https://img.shields.io/badge/WebRTC-333333?style=for-the-badge&logo=webrtc&logoColor=white)](https://webrtc.org/)
 
-## Tech goals
-- Modern frontend SPA for the meeting UI
-- Backend API for authentication and room management
-- Real-time media using WebRTC or a similar technology
+### *A modern, full-stack video conferencing application with real-time communication*
 
-## Repository state
-- The repo now contains:
-  - `README.md` and `WARP.md` at the root.
-  - `server/`: Node.js backend using Express + Socket.IO for signaling and static file serving.
-  - `client/`: static HTML/CSS/JS front-end implementing a Zoom-like meeting UI and WebRTC logic.
-- Backend configuration lives in `server/package.json`.
-- There is **no dedicated test or lint setup yet**; no scripts beyond `start`/`dev` are defined.
+[🚀 Live Demo](https://skymeet-project.onrender.com) • [📝 Report Bug](https://github.com/piyush2602/SkyMeet-Project/issues) • [✨ Request Feature](https://github.com/piyush2602/SkyMeet-Project/issues)
 
-## Common commands
-All commands assume your working directory is the repo root.
+</div>
 
-### Install and run the backend server
+---
+
+## 📖 Table of Contents
+
+- [About the Project](#-about-the-project)
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Getting Started](#-getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Running Locally](#running-locally)
+- [Usage](#-usage)
+- [Project Structure](#-project-structure)
+- [Deployment](#-deployment)
+- [Screenshots](#-screenshots)
+- [Roadmap](#-roadmap)
+- [Contributing](#-contributing)
+- [License](#-license)
+- [Contact](#-contact)
+
+---
+
+## 🌟 About the Project
+
+**SkyMeet** is a real-time video conferencing web application built with a sleek, Zoom-inspired interface. It enables seamless video and audio communication between multiple participants using WebRTC technology. Perfect for remote teams, online meetings, virtual classrooms, and social gatherings.
+
+### ✨ Why SkyMeet?
+
+- 🎯 **Simple & Intuitive** - Clean, user-friendly interface inspired by Zoom
+- 🔒 **Secure** - End-to-end WebRTC peer-to-peer connections
+- ⚡ **Fast** - Real-time communication with minimal latency
+- 🌐 **Accessible** - Works on any modern browser, no downloads required
+- 💡 **Lightweight** - Built with vanilla JavaScript for optimal performance
+
+---
+
+## 🚀 Features
+
+### Core Functionality
+- ✅ **User Authentication** - Secure login and signup system
+- 🎥 **Create/Join Rooms** - Instantly create or join meeting rooms with unique IDs
+- 📹 **Video Streaming** - High-quality peer-to-peer video communication
+- 🎤 **Audio Controls** - Mute/unmute microphone with visual feedback
+- 📷 **Camera Controls** - Turn camera on/off seamlessly
+- 👥 **Multiple Participants** - Support for multi-user video conferences
+
+### User Experience
+- 🎨 **Modern UI** - Clean, light-themed interface with blue accents
+- 📱 **Responsive Design** - Works perfectly on desktop, tablet, and mobile
+- 🔄 **Real-time Updates** - Instant notification when users join/leave
+- 🎯 **Room Management** - Easy room creation and sharing
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
+
+- **WebRTC** - Real-time peer-to-peer communication
+- **Socket.IO Client** - Real-time bidirectional event-based communication
+- **Vanilla JS** - Pure JavaScript for optimal performance
+
+### Backend
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white)
+![Express.js](https://img.shields.io/badge/Express.js-000000?style=flat-square&logo=express&logoColor=white)
+![Socket.io](https://img.shields.io/badge/Socket.io-010101?style=flat-square&logo=socketdotio&logoColor=white)
+
+- **Node.js** - JavaScript runtime environment
+- **Express.js** - Fast, minimalist web framework
+- **Socket.IO** - WebSocket library for real-time communication
+- **CORS** - Cross-origin resource sharing
+
+### Infrastructure
+- **STUN Server** - Google STUN server for NAT traversal (`stun:stun.l.google.com:19302`)
+- **Render** - Cloud hosting platform for deployment
+
+---
+
+## 🎬 Getting Started
+
+### Prerequisites
+
+Before you begin, ensure you have the following installed:
+- **Node.js** (v14 or higher) - [Download here](https://nodejs.org/)
+- **npm** (comes with Node.js)
+- A modern web browser (Chrome, Firefox, Safari, Edge)
+
+### Installation
+
+1️⃣ **Clone the repository**
+```bash
+git clone https://github.com/piyush2602/SkyMeet-Project.git
+cd SkyMeet-Project
+```
+
+2️⃣ **Navigate to server directory**
 ```bash
 cd server
+```
+
+3️⃣ **Install dependencies**
+```bash
 npm install
 ```
 
-- Start in development mode (with `nodemon` auto-reload):
-  ```bash
-  cd server
-  npm run dev
-  ```
+### Running Locally
 
-- Start in simple production mode:
-  ```bash
-  cd server
-  npm start
-  ```
+#### Development Mode (with auto-reload)
+```bash
+cd server
+npm run dev
+```
 
-The server listens on `http://localhost:3000` and serves the client from `client/`.
+#### Production Mode
+```bash
+cd server
+npm start
+```
 
-### Run the full app locally
-1. Start the server (see above).
-2. Open `http://localhost:3000/` in a browser.
-3. In multiple browser windows/devices:
-   - Enter a display name.
-   - Either click **Create New Room** (which generates a random room ID) or type a room ID and click **Join Room**.
-   - Share the room ID with others so they can join the same room.
+The server will start on **`http://localhost:3000`** 🎉
 
-### Build, lint, and tests
-- There are currently **no build, lint, or test scripts** defined.
-- When you add them, place scripts in `server/package.json` (and, if you introduce a front-end build, in a front-end `package.json`) and prefer using those scripts rather than invoking tools directly.
-- To discover future scripts, inspect the `scripts` section of the relevant `package.json`.
+---
 
-## Current architecture
-SkyMeet is a **full-stack video conferencing web application** with a Zoom-like, light UI, implemented as:
+## 💻 Usage
 
-- **Backend server (`server/index.js`)**
-  - Tech: Node.js, Express, Socket.IO.
-  - Responsibilities:
-    - Serves static front-end assets from `../client`.
-    - Exposes `GET /api/health` as a simple health endpoint.
-    - Maintains in-memory room and client state:
-      - `rooms: Map<roomId, Set<socketId>>`.
-      - `clients: Map<socketId, { roomId, name }>`.
-    - Handles Socket.IO events:
-      - `connection` – track new clients.
-      - `join-room` – join a room, update maps, send `existing-users` to the new client, broadcast `user-joined` to others.
-      - `signal` – relay WebRTC signaling messages (`offer`, `answer`, `ice-candidate`) between peers.
-      - `disconnect` – clean up client/room state and broadcast `user-left` to remaining participants.
-    - Uses permissive CORS and runs on `PORT` (default `3000`).
+### Starting a Meeting
 
-- **Front-end client (`client/`)**
-  - Tech: static HTML/CSS/vanilla JS, Socket.IO client, WebRTC.
-  - Files:
-    - `index.html` – layout with:
-      - Auth/join panel: display name, room ID, **Create New Room** / **Join Room** buttons.
-      - Meeting panel: video grid, room label, mic/camera controls.
-      - Includes Socket.IO client from CDN and `app.js`.
-    - `style.css` – light, white/blue theme with responsive layout and video tiles.
-    - `app.js` – client logic:
-      - Obtains local media via `getUserMedia` and renders a local video tile.
-      - Connects to Socket.IO (same origin) and emits `join-room` with `{ roomId, name }`.
-      - On `existing-users`, creates a `RTCPeerConnection` per existing peer, adds local tracks, and negotiates offers.
-      - On `signal`, handles `offer` / `answer` / `ice-candidate` to establish WebRTC peer connections.
-      - On `user-left`, closes and removes the corresponding peer tile.
-      - Uses STUN server `stun:stun.l.google.com:19302` and a full-mesh topology (each participant connects to all others).
-      - Provides mic and camera toggles by enabling/disabling local audio/video tracks.
+1. **Access the Application**
+   - Open your browser and navigate to `http://localhost:3000` (local) or [https://skymeet-project.onrender.com](https://skymeet-project.onrender.com) (live)
 
-## Notes for future Warp agents
-- Re-scan the repo (e.g. via file search or `Get-ChildItem`/`ls`) before making changes; this file may not describe newly added services or tooling.
-- Prefer using the existing server entry point (`server/index.js`) and static client under `client/` unless a new structure has been introduced.
-- When adding tests, linting, or additional services (e.g. auth, persistence, TURN/STUN configuration), surface them through explicit scripts in the appropriate `package.json` and update this WARP.md with any new common commands or architectural components.
+2. **Enter Your Details**
+   - Provide your display name
+   - Choose to either create a new room or enter an existing room ID
 
+3. **Create or Join**
+   - **Create New Room**: Click the button to generate a unique room ID automatically
+   - **Join Room**: Enter a room ID shared by someone else and click join
+
+4. **Share the Room**
+   - Copy the room ID and share it with participants
+   - They can use the same room ID to join your meeting
+
+5. **Control Your Media**
+   - Use the microphone button to mute/unmute
+   - Use the camera button to turn video on/off
+
+### Tips
+- 📋 **Share Room ID** quickly by copying it from the meeting interface
+- 🔊 **Test Audio/Video** before joining important meetings
+- 🌐 **Use a stable internet connection** for best experience
+
+---
+
+## 📁 Project Structure
+
+```
+skymeet/
+├── client/                     # Frontend files
+│   ├── auth.html              # Authentication page
+│   ├── meeting-home.html      # Meeting lobby
+│   ├── meeting.html           # Main meeting interface
+│   ├── app.js                 # Client-side WebRTC & Socket.IO logic
+│   └── style.css              # Styling
+│
+├── server/                     # Backend files
+│   ├── index.js               # Express server & Socket.IO signaling
+│   ├── package.json           # Server dependencies
+│   ├── data/                  # User data storage
+│   │   └── users.json         # User authentication data
+│   └── Procfile               # Deployment configuration
+│
+└── README.md                   # You are here!
+```
+
+---
+
+## 🌐 Deployment
+
+SkyMeet is deployed on **Render** for production use.
+
+### 🔗 Live Application
+**[https://skymeet-project.onrender.com](https://skymeet-project.onrender.com)**
+
+### Deploy Your Own Instance
+
+1. **Fork this repository**
+2. **Create a Render account** at [render.com](https://render.com)
+3. **Create a new Web Service**
+   - Connect your GitHub repository
+   - Set build command: `cd server && npm install`
+   - Set start command: `cd server && npm start`
+   - Set environment: `Node`
+4. **Deploy** and your app will be live! 🚀
+
+---
+
+## 📸 Screenshots
+
+> *Coming soon! Add screenshots of your application in action*
+
+---
+
+## 🗺️ Roadmap
+
+- [x] Basic video/audio calling
+- [x] Room creation and joining
+- [x] Mute/unmute controls
+- [x] Camera on/off controls
+- [x] User authentication
+- [ ] Screen sharing capability
+- [ ] In-meeting text chat
+- [ ] Recording functionality
+- [ ] Virtual backgrounds
+- [ ] Breakout rooms
+- [ ] Meeting scheduling
+- [ ] Mobile app (React Native)
+
+See the [open issues](https://github.com/piyush2602/SkyMeet-Project/issues) for a full list of proposed features and known issues.
+
+---
+
+## 📧 Author
+
+**Piyush** - [@piyush2602](https://github.com/piyush2602)
+
+**Project Link:** [https://github.com/piyush2602/SkyMeet-Project](https://github.com/piyush2602/SkyMeet-Project)
+
+**Live Demo:** [https://skymeet-project.onrender.com](https://skymeet-project.onrender.com)
+
+---
+
+<div align="center">
+
+### ⭐ Star this repository if you found it helpful!
+
+Made with ❤️ by [Piyush](https://github.com/piyush2602)
+
+</div>
