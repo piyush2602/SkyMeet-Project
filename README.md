@@ -93,8 +93,3 @@ SkyMeet is a **full-stack video conferencing web application** with a Zoom-like,
       - Uses STUN server `stun:stun.l.google.com:19302` and a full-mesh topology (each participant connects to all others).
       - Provides mic and camera toggles by enabling/disabling local audio/video tracks.
 
-## Notes for future Warp agents
-- Re-scan the repo (e.g. via file search or `Get-ChildItem`/`ls`) before making changes; this file may not describe newly added services or tooling.
-- Prefer using the existing server entry point (`server/index.js`) and static client under `client/` unless a new structure has been introduced.
-- When adding tests, linting, or additional services (e.g. auth, persistence, TURN/STUN configuration), surface them through explicit scripts in the appropriate `package.json` and update this WARP.md with any new common commands or architectural components.
-
