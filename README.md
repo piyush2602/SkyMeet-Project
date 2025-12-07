@@ -38,11 +38,11 @@
 
 ## 🌟 About the Project
 
-**SkyMeet** is a real-time video conferencing web application built with a sleek, Zoom-inspired interface. It enables seamless video and audio communication between multiple participants using WebRTC technology. Perfect for remote teams, online meetings, virtual classrooms, and social gatherings.
+**SkyMeet** is a real-time video conferencing web application built with a sleek, interface. It enables seamless video and audio communication between multiple participants using WebRTC technology. Perfect for remote teams, online meetings, virtual classrooms, and social gatherings.
 
 ### ✨ Why SkyMeet?
 
-- 🎯 **Simple & Intuitive** - Clean, user-friendly interface inspired by Zoom
+- 🎯 **Simple & Intuitive** - Clean, user-friendly interface
 - 🔒 **Secure** - End-to-end WebRTC peer-to-peer connections
 - ⚡ **Fast** - Real-time communication with minimal latency
 - 🌐 **Accessible** - Works on any modern browser, no downloads required
