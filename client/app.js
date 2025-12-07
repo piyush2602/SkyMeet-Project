@@ -417,9 +417,10 @@ toggleCameraBtn.addEventListener('click', () => {
   toggleCameraBtn.textContent = videoEnabled ? 'Stop Video' : 'Start Video';
 });
 
-leaveCallBtn.addEventListener('click', () => {
-  leaveCall();
-});
+// leaveCallBtn event listener is handled in meeting.html inline script
+// leaveCallBtn.addEventListener('click', () => {
+//   leaveCall();
+// });
 
 window.addEventListener('beforeunload', () => {
   cleanupPeers();

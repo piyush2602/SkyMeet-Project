@@ -660,10 +660,10 @@
                         } catch (e) { console.warn(e); }
                     }
                     try { document.querySelectorAll('[data-peer]').forEach(n => n.remove()); const grid = document.getElementById('videoGrid') || document.querySelector('.video-grid'); if (grid) { Array.from(grid.querySelectorAll('video')).forEach(v => { try { v.pause(); v.srcObject = null; v.remove(); } catch (e) { } }); } } catch (e) { }
-                    window.location.href = '/lobby';
+                    window.location.href = 'meeting-home.html';
                 } catch (err) {
                     console.error(err);
-                    try { window.location.href = '/lobby'; } catch (e) { }
+                    try { window.location.href = 'meeting-home.html'; } catch (e) { }
                 }
             }
 
