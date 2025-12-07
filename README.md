@@ -189,9 +189,8 @@ skymeet/
 │   └── Procfile               # Deployment configuration
 │
 └── README.md                   # You are here!
-```
 
----
+```
 
 ## 🌐 Deployment
 
@@ -244,7 +243,7 @@ See the [open issues](https://github.com/piyush2602/SkyMeet-Project/issues) for 
 
 **Project Link:** [https://github.com/piyush2602/SkyMeet-Project](https://github.com/piyush2602/SkyMeet-Project)
 
-**Live Demo:** [https://skymeet-project.onrender.com](https://skymeet-project.onrender.com)
+**Live Demo:** [https://skymeet-6prd.onrender.com/).
 
 ---
 
