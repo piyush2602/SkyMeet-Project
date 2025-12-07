@@ -7,6 +7,17 @@
   <title>SkyMeet — Welcome</title>
   <link rel="icon" type="image/png" href="favicon.png">
 
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2a7dff">
+  <meta name="description" content="Lightweight WebRTC-based video conferencing application">
+
+  <!-- iOS PWA Support -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SkyMeet">
+  <link rel="apple-touch-icon" href="favicon.png">
+
 
   <style>
     :root {
@@ -563,6 +574,9 @@
       console.log('Auth script loaded.');
     })();
   </script>
+
+  <!-- PWA Registration -->
+  <script src="pwa-register.js"></script>
 </body>
 
 </html>
