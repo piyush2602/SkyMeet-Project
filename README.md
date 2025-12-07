@@ -10,7 +10,7 @@
 
 ### *A modern, full-stack video conferencing application with real-time communication*
 
-[🚀 Live Demo](https://skymeet-project.onrender.com) • [📝 Report Bug](https://github.com/piyush2602/SkyMeet-Project/issues) • [✨ Request Feature](https://github.com/piyush2602/SkyMeet-Project/issues)
+[🚀 Live Demo](https://skymeet-6prd.onrender.com/) • [📝 Report Bug](https://github.com/piyush2602/SkyMeet-Project/issues) • [✨ Request Feature](https://github.com/piyush2602/SkyMeet-Project/issues)
 
 </div>
 
