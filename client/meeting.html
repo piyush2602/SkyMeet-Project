@@ -16,22 +16,26 @@
         */
 
         :root {
-            --bg-page: #ffffff;
-            --bg-2: #fbfdff;
+            --bg-page: #f0f7ff;
+            --bg-2: #e3f2fd;
             --panel: #ffffff;
-            --panel-2: #f6f9ff;
-            --muted: #6b7b95;
-            --accent: #1a5fe8;
-            /* primary blue */
-            --accent-700: #144fc3;
-            --danger: #e84c3d;
-            /* hangup red (unchanged) */
-            --shadow-1: 0 8px 28px rgba(18, 43, 85, 0.06);
-            --shadow-2: 0 10px 36px rgba(18, 43, 85, 0.06);
+            --panel-2: #f8fbff;
+            --muted: #5f6368;
+            --text-primary: #1a1a1a;
+            --text-secondary: #5f6368;
+            --accent: #2196f3;
+            --accent-hover: #42a5f5;
+            --accent-light: #bbdefb;
+            --danger: #f44336;
+            --danger-hover: #e57373;
+            --control-bg: #ffffff;
+            --control-hover: #e3f2fd;
+            --shadow-1: 0 2px 8px rgba(33, 150, 243, 0.15);
+            --shadow-2: 0 4px 16px rgba(33, 150, 243, 0.2);
             --radius-md: 12px;
-            --radius-lg: 14px;
-            --glass: rgba(255, 255, 255, 0.8);
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            --radius-lg: 16px;
+            --glass: rgba(255, 255, 255, 0.95);
+            font-family: "Google Sans", "Roboto", "Segoe UI", sans-serif;
             color-scheme: light;
         }
 
@@ -116,24 +120,25 @@
             gap: 18px;
             padding: 20px;
             place-items: center;
-            align-content: center;
+            align-content: flex-start;
             overflow: auto;
             background: transparent;
         }
 
         .video-tile {
             width: 100%;
-            max-width: 860px;
+            max-width: 600px;
             aspect-ratio: 16/9;
-            background: linear-gradient(180deg, #f8fbff, #eef6ff);
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
             border-radius: var(--radius-lg);
             position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(26, 95, 232, 0.06);
+            overflow: visible;
+            border: 2px solid var(--accent-light);
             box-shadow: var(--shadow-1);
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-bottom: 45px;
         }
 
         .video-tile video,
@@ -143,6 +148,7 @@
             object-fit: cover;
             display: block;
             background: #000;
+            border-radius: var(--radius-lg);
         }
 
         .participant-name-static {
@@ -176,6 +182,66 @@
             color: #2b6f3a;
         }
 
+        /* Participant names below video */
+        .video-label {
+            display: block;
+            position: absolute;
+            bottom: -38px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: var(--text-primary);
+            font-size: 13px;
+            font-weight: 500;
+            padding: 8px 0;
+        }
+
+        /* Fullscreen Button */
+        .fullscreen-btn {
+            position: absolute;
+            right: 16px;
+            bottom: 16px;
+            width: 44px;
+            height: 44px;
+            background: var(--panel);
+            border: 2px solid var(--accent-light);
+            border-radius: 50%;
+            color: var(--accent);
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.2s ease;
+            z-index: 10;
+            box-shadow: var(--shadow-1);
+        }
+
+        .fullscreen-btn:hover {
+            background: var(--accent-light);
+            transform: scale(1.05);
+            border-color: var(--accent);
+        }
+
+        .video-tile:hover .fullscreen-btn {
+            display: inline-flex;
+        }
+
+        .video-tile.fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw !important;
+            height: 100vh !important;
+            max-width: 100vw !important;
+            z-index: 2000;
+            border-radius: 0;
+        }
+
+        .video-tile.fullscreen .fullscreen-btn {
+            display: inline-flex;
+        }
+
         .video-overlay {
             position: absolute;
             left: 0;
@@ -196,23 +262,34 @@
             pointer-events: auto;
         }
 
-        /* Controls bar (floating) */
+        /* Controls bar (floating) - visible by default, hide when hovering video tiles */
         .controls-bar {
             position: fixed;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translateX(-50%) translateY(0);
             bottom: 22px;
             display: flex;
             gap: 14px;
             align-items: center;
             padding: 10px 18px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(250, 250, 255, 0.94));
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 40px;
             box-shadow: var(--shadow-2);
-            z-index: 1200;
-            border: 1px solid rgba(26, 95, 232, 0.06);
-            backdrop-filter: blur(6px);
+            z-index: 2100;
+            border: 2px solid var(--accent-light);
+            backdrop-filter: blur(16px);
             pointer-events: auto;
+            opacity: 1;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        /* Hide controls when hovering over video tiles or header */
+        .video-tile:hover~.controls-bar,
+        .app-main:has(.video-tile:hover) .controls-bar,
+        .app-header:hover~.app-main .controls-bar,
+        .app:has(.app-header:hover) .controls-bar {
+            transform: translateX(-50%) translateY(120%);
+            opacity: 0;
         }
 
         .control-btn {
@@ -299,6 +376,17 @@
 
         /* small screens */
         @media (max-width: 980px) {
+
+            /* Hide scrollbar but keep scrolling */
+            body {
+                overflow-y: auto;
+                scrollbar-width: none;
+            }
+
+            body::-webkit-scrollbar {
+                display: none;
+            }
+
             .video-grid {
                 padding: 12px;
                 gap: 12px;
@@ -310,8 +398,18 @@
             }
 
             .controls-bar {
-                bottom: 12px;
+                position: relative !important;
+                left: auto !important;
+                bottom: auto !important;
+                margin: 20px auto;
                 padding: 8px 12px;
+                /* Always visible on mobile */
+                transform: none !important;
+                opacity: 1 !important;
+                /* Wrap buttons instead of scrolling */
+                flex-wrap: wrap;
+                justify-content: center;
+                max-width: 95vw;
             }
 
             .control-btn {
@@ -487,7 +585,9 @@
         <header class="app-header enhanced">
             <div class="header-left">
                 <div class="brand">
-                    <div class="brand-logo" id="brandLogo">SM</div>
+                    <div class="brand-logo" id="brandLogo" style="font-size: 20px; color: white;">
+                        SM
+                    </div>
                     <div class="brand-text">
                         <div class="brand-title">SkyMeet</div>
                     </div>
@@ -541,7 +641,7 @@
                             <path
                                 d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z" />
                         </svg>
-                        <div class="control-label">Mute</div>
+                        <div class="control-label"></div>
                     </button>
 
                     <button class="control-btn" id="toggleCameraBtn" title="Stop / Start video">
@@ -550,7 +650,7 @@
                             <path
                                 d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z" />
                         </svg>
-                        <div class="control-label">Video</div>
+                        <div class="control-label"></div>
                     </button>
 
                     <button class="control-btn end-call" id="leaveCallBtn" title="Leave call">
@@ -561,8 +661,6 @@
                         </svg>
                     </button>
                 </div>
-
-                <p id="status" class="status"></p>
             </section>
         </main>
     </div>
@@ -572,6 +670,104 @@
 
     <!-- app logic (your existing app.js expects the DOM IDs above) -->
     <script src="./app.js"></script>
+
+    <script>
+        // Fullscreen functionality for video tiles
+        (function () {
+            const videoGrid = document.getElementById('videoGrid');
+            if (!videoGrid) return;
+
+            // Add fullscreen button to all video tiles (existing and new)
+            function addFullscreenButtons() {
+                const tiles = document.querySelectorAll('.video-tile');
+                tiles.forEach(tile => {
+                    if (tile.querySelector('.fullscreen-btn')) return; // Already has button
+
+                    const fullscreenBtn = document.createElement('button');
+                    fullscreenBtn.className = 'fullscreen-btn';
+                    fullscreenBtn.title = 'Fullscreen';
+                    fullscreenBtn.innerHTML = `
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+                        </svg>
+                    `;
+
+                    fullscreenBtn.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        toggleFullscreen(tile, fullscreenBtn);
+                    });
+
+                    tile.appendChild(fullscreenBtn);
+                });
+            }
+
+            function toggleFullscreen(tile, btn) {
+                if (tile.classList.contains('fullscreen')) {
+                    // Exit fullscreen
+                    tile.classList.remove('fullscreen');
+                    btn.innerHTML = `
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+                        </svg>
+                    `;
+                    btn.title = 'Fullscreen';
+                } else {
+                    // Enter fullscreen
+                    // First exit any other fullscreen tiles
+                    document.querySelectorAll('.video-tile.fullscreen').forEach(t => {
+                        if (t !== tile) {
+                            t.classList.remove('fullscreen');
+                            const otherBtn = t.querySelector('.fullscreen-btn');
+                            if (otherBtn) {
+                                otherBtn.innerHTML = `
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+                                    </svg>
+                                `;
+                                otherBtn.title = 'Fullscreen';
+                            }
+                        }
+                    });
+
+                    tile.classList.add('fullscreen');
+                    btn.innerHTML = `
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>
+                        </svg>
+                    `;
+                    btn.title = 'Exit fullscreen';
+                }
+            }
+
+            // Add ESC key listener to exit fullscreen
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    const fullscreenTile = document.querySelector('.video-tile.fullscreen');
+                    if (fullscreenTile) {
+                        const btn = fullscreenTile.querySelector('.fullscreen-btn');
+                        if (btn) btn.click();
+                    }
+                }
+            });
+
+            // Initial add
+            addFullscreenButtons();
+
+            // Watch for new video tiles being added
+            const observer = new MutationObserver(function (mutations) {
+                mutations.forEach(function (mutation) {
+                    if (mutation.addedNodes.length > 0) {
+                        addFullscreenButtons();
+                    }
+                });
+            });
+
+            observer.observe(videoGrid, {
+                childList: true,
+                subtree: true
+            });
+        })();
+    </script>
 
     <script>
         // initialize meeting page from localStorage (meeting-home.html sets sky_meeting)
