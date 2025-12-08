@@ -108,6 +108,35 @@ io.on('connection', (socket) => {
     }
   });
 
+  // Handle chat messages
+  socket.on('chat-message', ({ roomId, name, text }) => {
+    if (!roomId || !text) return;
+    
+    // Broadcast to all users in the room (including sender)
+    io.to(roomId).emit('chat-message', {
+      senderId: socket.id,
+      name: name || 'Guest',
+      text: text,
+      time: Date.now()
+    });
+  });
+
+  // Handle file sharing
+  socket.on('chat-file', ({ roomId, name, fileName, fileData, fileType, fileSize }) => {
+    if (!roomId || !fileData) return;
+    
+    // Broadcast file to all users in the room
+    io.to(roomId).emit('chat-file', {
+      senderId: socket.id,
+      name: name || 'Guest',
+      fileName: fileName,
+      fileData: fileData,
+      fileType: fileType,
+      fileSize: fileSize,
+      time: Date.now()
+    });
+  });
+
   socket.on('disconnect', () => {
     const meta = clients.get(socket.id);
     if (meta && meta.roomId) {

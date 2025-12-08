@@ -68,7 +68,6 @@
             /* primary text: blue */
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
         }
@@ -77,6 +76,40 @@
             height: 100%;
             display: flex;
             flex-direction: column;
+        }
+
+        /* Ensure .app takes full height */
+        .app {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            /* prevents body scroll */
+            height: 100%;
+        }
+
+        .app-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .video-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background: transparent !important;
+            /* adhere to theme */
+            border: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+        }
+
+        .meeting-header {
+            padding: 0 20px 10px 20px;
         }
 
         /* Header */
@@ -134,6 +167,27 @@
             align-content: flex-start;
             overflow: auto;
             background: transparent;
+            /* Custom Scrollbar */
+            scrollbar-width: thin;
+            scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+        }
+
+        .video-grid::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .video-grid::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .video-grid::-webkit-scrollbar-thumb {
+            background: rgba(156, 163, 175, 0.5);
+            border-radius: 4px;
+        }
+
+        .video-grid::-webkit-scrollbar-thumb:hover {
+            background: rgba(107, 114, 128, 0.8);
         }
 
         .video-tile {
@@ -280,11 +334,11 @@
             transform: translateX(-50%) translateY(0);
             bottom: 22px;
             display: flex;
-            gap: 14px;
+            gap: 18px;
             align-items: center;
-            padding: 10px 18px;
+            padding: 14px 28px;
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 40px;
+            border-radius: 50px;
             box-shadow: var(--shadow-2);
             z-index: 2100;
             border: 2px solid var(--accent-light);
@@ -292,6 +346,7 @@
             pointer-events: auto;
             opacity: 1;
             transition: transform 0.3s ease, opacity 0.3s ease;
+            min-width: fit-content;
         }
 
         /* Hide controls when hovering over video tiles or header */
@@ -329,9 +384,8 @@
         }
 
         .control-btn.active {
-            background: linear-gradient(180deg, var(--accent), var(--accent-700));
+            background-color: #1db954;
             color: #fff;
-            box-shadow: 0 12px 36px rgba(26, 95, 232, 0.18);
         }
 
         .control-btn.end-call {
@@ -586,6 +640,230 @@
                 height: 40px;
             }
         }
+
+        /* Chat Panel Styles */
+        .chat-panel {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 320px;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.98);
+            border-left: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            z-index: 2000;
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .chat-panel.hidden {
+            transform: translateX(100%);
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: linear-gradient(135deg, #2a7dff, #185fd6);
+            color: white;
+        }
+
+        .chat-title {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .chat-close-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .chat-close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .chat-message {
+            display: flex;
+            flex-direction: column;
+            max-width: 85%;
+        }
+
+        .chat-message.own {
+            align-self: flex-start;
+        }
+
+        .chat-message.other {
+            align-self: flex-end;
+        }
+
+        .chat-sender {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .chat-bubble {
+            padding: 10px 14px;
+            border-radius: 16px;
+            font-size: 14px;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+
+        .chat-message.own .chat-bubble {
+            background: linear-gradient(135deg, #2a7dff, #185fd6);
+            color: white;
+            border-bottom-left-radius: 4px;
+        }
+
+        .chat-message.other .chat-bubble {
+            background: #f0f0f0;
+            color: #333;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-time {
+            font-size: 10px;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        .chat-input-area {
+            display: flex;
+            gap: 10px;
+            padding: 16px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            background: #fafafa;
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 24px;
+            outline: none;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .chat-input-area input:focus {
+            border-color: #2a7dff;
+        }
+
+        .send-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, #2a7dff, #185fd6);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .attach-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            background: white;
+            color: #666;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .attach-btn:hover {
+            background: #f0f0f0;
+            color: #2a7dff;
+            border-color: #2a7dff;
+        }
+
+        .file-message {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
+        }
+
+        .file-icon {
+            font-size: 20px;
+        }
+
+        .file-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .file-name {
+            font-weight: 500;
+            font-size: 13px;
+            color: #333;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .file-size {
+            font-size: 11px;
+            color: #888;
+        }
+
+        .download-btn {
+            padding: 6px 12px;
+            background: linear-gradient(135deg, #2a7dff, #185fd6);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 480px) {
+            .chat-panel {
+                width: 100%;
+            }
+        }
     </style>
 
     <div class="app">
@@ -595,10 +873,8 @@
         </header> -->
         <header class="app-header enhanced">
             <div class="header-left">
-                <div class="brand">
-                    <div class="brand-logo" id="brandLogo" style="font-size: 20px; color: white;">
-                        SM
-                    </div>
+                <div class="brand" style="display: flex; align-items: center; gap: 10px;">
+                    <img src="favicon.png" alt="SkyMeet" style="width: 32px; height: 32px; border-radius: 6px;">
                     <div class="brand-text">
                         <div class="brand-title">SkyMeet</div>
                     </div>
@@ -664,6 +940,24 @@
                         <div class="control-label"></div>
                     </button>
 
+                    <button class="control-btn" id="shareScreenBtn" title="Share Screen">
+                        <!-- screen share icon -->
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7v2H8v2h8v-2h-2v-2h7c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12zm-6-6l-4 4v-3H8v-2h3V7l4 4z" />
+                        </svg>
+                        <div class="control-label"></div>
+                    </button>
+
+                    <button class="control-btn" id="chatBtn" title="Chat">
+                        <!-- chat icon -->
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z" />
+                        </svg>
+                        <div class="control-label"></div>
+                    </button>
+
                     <button class="control-btn end-call" id="leaveCallBtn" title="Leave call">
                         <!-- hangup icon -->
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
@@ -671,8 +965,36 @@
                                 d="M12 9c-1.6 0-3.15.25-4.6.72v3.1c0 .39-.23.74-.56.9-.98.49-1.87 1.12-2.66 1.85-.18.18-.43.28-.7.28-.28 0-.53-.11-.71-.29L.29 13.08c-.18-.17-.29-.42-.29-.7 0-.28.11-.53.29-.71C3.34 8.78 7.46 7 12 7s8.66 1.78 11.71 4.67c.18.18.29.43.29.71 0 .28-.11.53-.29.71l-2.48 2.48c-.18.18-.43.29-.71.29-.27 0-.52-.11-.7-.28-.79-.74-1.69-1.36-2.67-1.85-.33-.16-.56-.5-.56-.9v-3.1C15.15 9.25 13.6 9 12 9z" />
                         </svg>
                     </button>
+
+
                 </div>
             </section>
+
+            <!-- Chat Panel -->
+            <div id="chatPanel" class="chat-panel hidden">
+                <div class="chat-header">
+                    <span class="chat-title">💬 Chat</span>
+                    <button id="closeChatBtn" class="chat-close-btn" title="Close chat">✕</button>
+                </div>
+                <div id="chatMessages" class="chat-messages"></div>
+                <div class="chat-input-area">
+                    <button id="attachFileBtn" class="attach-btn" title="Attach file">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5a2.5 2.5 0 015 0v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5a2.5 2.5 0 005 0V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z" />
+                        </svg>
+                    </button>
+                    <input type="file" id="fileInput" hidden
+                        accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg,.gif,.zip,.mp3,.mp4">
+                    <input type="text" id="chatInput" placeholder="Type a message..." autocomplete="off">
+                    <button id="sendChatBtn" class="send-btn" title="Send">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
         </main>
     </div>
 
@@ -1007,6 +1329,9 @@
             }
             muteBtn.addEventListener('click', (e) => { e.preventDefault(); toggleMute(); });
         })();
+    </script>
+
+    <script>
         // Populate brand initials from sky_user if present
         (function () {
             try {

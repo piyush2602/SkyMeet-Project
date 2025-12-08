@@ -101,6 +101,12 @@
       return;
     }
 
+    // Check if user previously dismissed the prompt
+    if (localStorage.getItem('pwa-install-dismissed') === 'true') {
+      console.log('[PWA] Install prompt was previously dismissed');
+      return;
+    }
+
     const installBanner = document.createElement('div');
     installBanner.id = 'pwa-install-banner';
     installBanner.innerHTML = `
@@ -148,6 +154,9 @@
     const banner = document.getElementById('pwa-install-banner');
     if (banner) banner.remove();
     
+    // Save that user interacted with install
+    localStorage.setItem('pwa-install-dismissed', 'true');
+    
     deferredPrompt.prompt();
     
     const { outcome } = await deferredPrompt.userChoice;
@@ -160,6 +169,10 @@
   window.dismissInstallPrompt = function() {
     const banner = document.getElementById('pwa-install-banner');
     if (banner) banner.remove();
+    
+    // Save dismissal to localStorage so it doesn't show again
+    localStorage.setItem('pwa-install-dismissed', 'true');
+    
     deferredPrompt = null;
   };
 
