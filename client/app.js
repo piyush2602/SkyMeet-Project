@@ -592,6 +592,8 @@ async function stopScreenShare() {
 function toggleChatPanel() {
   if (chatPanel) {
     chatPanel.classList.toggle('hidden');
+    // Toggle chat-open class on body for mobile controls hiding
+    document.body.classList.toggle('chat-open', !chatPanel.classList.contains('hidden'));
     if (chatBtn) {
       chatBtn.classList.toggle('active', !chatPanel.classList.contains('hidden'));
     }
