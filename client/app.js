@@ -41,6 +41,7 @@ const emojiGrid = document.getElementById('emojiGrid');
 
 let unreadMessageCount = 0;
 let notificationSound = null;
+let chatActivated = false; // Track if chat button was clicked
 
 let socket;
 let localStream;
@@ -598,20 +599,71 @@ async function stopScreenShare() {
 
 function toggleChatPanel() {
   if (chatPanel) {
-    const isOpening = chatPanel.classList.contains('hidden');
-    chatPanel.classList.toggle('hidden');
-    // Toggle chat-open class on body for mobile controls hiding
-    document.body.classList.toggle('chat-open', !chatPanel.classList.contains('hidden'));
-    if (chatBtn) {
-      chatBtn.classList.toggle('active', !chatPanel.classList.contains('hidden'));
+    const windowWidth = window.innerWidth;
+    
+    // On mobile (width <= 980px), use traditional toggle behavior
+    if (windowWidth <= 980) {
+      const isOpening = chatPanel.classList.contains('hidden');
+      chatPanel.classList.toggle('hidden');
+      document.body.classList.toggle('chat-open', !chatPanel.classList.contains('hidden'));
+      if (chatBtn) {
+        chatBtn.classList.toggle('active', !chatPanel.classList.contains('hidden'));
+      }
+      if (isOpening) {
+        clearUnreadMessages();
+      }
+      return;
     }
     
-    // Clear unread count when opening chat
-    if (isOpening) {
-      clearUnreadMessages();
+    // On desktop, use cursor-based behavior
+    if (chatActivated) {
+      // If chat is activated, deactivate it
+      chatActivated = false;
+      chatPanel.classList.add('hidden');
+      document.body.classList.remove('chat-open');
+      if (chatBtn) {
+        chatBtn.classList.remove('active');
+      }
+    } else {
+      // Activate chat mode
+      chatActivated = true;
+      if (chatBtn) {
+        chatBtn.classList.add('active');
+      }
+      // Chat will show when cursor moves to right side
     }
   }
 }
+
+// Track mouse movement to show/hide chat based on cursor position
+document.addEventListener('mousemove', (e) => {
+  if (!chatActivated || !chatPanel) return;
+  
+  const windowWidth = window.innerWidth;
+  
+  // Only enable this feature on desktop/laptop (screen width > 980px)
+  if (windowWidth <= 980) {
+    // On mobile, use traditional toggle behavior
+    return;
+  }
+  
+  const rightThreshold = windowWidth * 0.7; // Right 30% of screen
+  
+  if (e.clientX > rightThreshold) {
+    // Cursor is on the right side, show chat
+    if (chatPanel.classList.contains('hidden')) {
+      chatPanel.classList.remove('hidden');
+      document.body.classList.add('chat-open');
+      clearUnreadMessages();
+    }
+  } else {
+    // Cursor is not on the right side, hide chat
+    if (!chatPanel.classList.contains('hidden')) {
+      chatPanel.classList.add('hidden');
+      document.body.classList.remove('chat-open');
+    }
+  }
+});
 
 function sendChatMessage() {
   if (!chatInput || !socket || !currentRoomId) return;
