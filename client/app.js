@@ -34,6 +34,13 @@ const chatInput = document.getElementById('chatInput');
 const sendChatBtn = document.getElementById('sendChatBtn');
 const attachFileBtn = document.getElementById('attachFileBtn');
 const fileInput = document.getElementById('fileInput');
+const emojiBtn = document.getElementById('emojiBtn');
+const emojiPicker = document.getElementById('emojiPicker');
+const closeEmojiPicker = document.getElementById('closeEmojiPicker');
+const emojiGrid = document.getElementById('emojiGrid');
+
+let unreadMessageCount = 0;
+let notificationSound = null;
 
 let socket;
 let localStream;
@@ -591,11 +598,17 @@ async function stopScreenShare() {
 
 function toggleChatPanel() {
   if (chatPanel) {
+    const isOpening = chatPanel.classList.contains('hidden');
     chatPanel.classList.toggle('hidden');
     // Toggle chat-open class on body for mobile controls hiding
     document.body.classList.toggle('chat-open', !chatPanel.classList.contains('hidden'));
     if (chatBtn) {
       chatBtn.classList.toggle('active', !chatPanel.classList.contains('hidden'));
+    }
+    
+    // Clear unread count when opening chat
+    if (isOpening) {
+      clearUnreadMessages();
     }
   }
 }
@@ -631,6 +644,11 @@ function appendChatMessage(name, text, time, isOwn) {
   
   chatMessages.appendChild(msgDiv);
   chatMessages.scrollTop = chatMessages.scrollHeight;
+  
+  // Show notification for incoming messages (not own messages)
+  if (!isOwn) {
+    showChatNotification(name, text);
+  }
 }
 
 function escapeHtml(text) {
@@ -727,6 +745,11 @@ function appendFileMessage(name, fileName, fileData, fileType, fileSize, time, i
   
   chatMessages.appendChild(msgDiv);
   chatMessages.scrollTop = chatMessages.scrollHeight;
+  
+  // Show notification for incoming files (not own files)
+  if (!isOwn) {
+    showChatNotification(name, `📎 Sent a file: ${fileName}`);
+  }
 }
 
 // File event listeners
@@ -741,6 +764,204 @@ if (attachFileBtn && fileInput) {
       sendFile(file);
       fileInput.value = ''; // Reset input
     }
+  });
+}
+
+// ---------- Chat notifications ----------
+
+function initNotificationSound() {
+  // Create a simple notification sound using Web Audio API
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  if (!AudioContext) return;
+  
+  notificationSound = {
+    play: function() {
+      try {
+        const audioCtx = new AudioContext();
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        
+        oscillator.frequency.value = 800;
+        oscillator.type = 'sine';
+        
+        gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+        
+        oscillator.start(audioCtx.currentTime);
+        oscillator.stop(audioCtx.currentTime + 0.15);
+      } catch (err) {
+        console.warn('Could not play notification sound', err);
+      }
+    }
+  };
+}
+
+function updateChatBadge() {
+  if (!chatBtn) return;
+  
+  // Remove existing badge
+  const existingBadge = chatBtn.querySelector('.chat-badge');
+  if (existingBadge) {
+    existingBadge.remove();
+  }
+  
+  // Add new badge if there are unread messages and chat is closed
+  if (unreadMessageCount > 0 && chatPanel && chatPanel.classList.contains('hidden')) {
+    const badge = document.createElement('span');
+    badge.className = 'chat-badge';
+    badge.textContent = unreadMessageCount > 99 ? '99+' : unreadMessageCount;
+    chatBtn.appendChild(badge);
+  }
+}
+
+function clearUnreadMessages() {
+  unreadMessageCount = 0;
+  updateChatBadge();
+}
+
+function showChatNotification(senderName, messageText) {
+  // Only show notification if chat is closed
+  if (!chatPanel || !chatPanel.classList.contains('hidden')) {
+    return;
+  }
+  
+  // Increment unread count
+  unreadMessageCount++;
+  updateChatBadge();
+  
+  // Play notification sound
+  if (notificationSound) {
+    notificationSound.play();
+  }
+  
+  // Show browser notification if permission granted
+  if ('Notification' in window && Notification.permission === 'granted') {
+    try {
+      const notification = new Notification('New message in SkyMeet', {
+        body: `${senderName}: ${messageText.substring(0, 100)}${messageText.length > 100 ? '...' : ''}`,
+        icon: 'favicon.png',
+        badge: 'favicon.png',
+        tag: 'skymeet-chat',
+        requireInteraction: false
+      });
+      
+      notification.onclick = function() {
+        window.focus();
+        if (chatPanel && chatPanel.classList.contains('hidden')) {
+          toggleChatPanel();
+        }
+        notification.close();
+      };
+      
+      // Auto-close notification after 5 seconds
+      setTimeout(() => notification.close(), 5000);
+    } catch (err) {
+      console.warn('Could not show browser notification', err);
+    }
+  }
+}
+
+function requestNotificationPermission() {
+  if ('Notification' in window && Notification.permission === 'default') {
+    Notification.requestPermission().then(permission => {
+      console.log('Notification permission:', permission);
+    });
+  }
+}
+
+// ---------- Emoji picker ----------
+
+const emojis = [
+  '😊', '😂', '🤣', '😍', '😘', '😭', '😢', '😡', '😎', '🤔',
+  '👍', '👎', '👏', '🙏', '💪', '✌️', '🤝', '👋', '🤗', '🎉',
+  '❤️', '💔', '💕', '💖', '💙', '💚', '💛', '🧡', '💜', '🖤',
+  '🔥', '⭐', '✨', '💯', '✅', '❌', '⚠️', '💡', '🎯', '📌',
+  '🎵', '🎶', '🎤', '🎧', '📱', '💻', '⌚', '📷', '🎮', '⚽',
+  '🍕', '🍔', '🍟', '🌮', '🍿', '🎂', '🍰', '🍩', '☕', '🍺',
+  '🚀', '✈️', '🚗', '🏠', '🌍', '🌙', '☀️', '⛅', '🌈', '⚡'
+];
+
+function initEmojiPicker() {
+  if (!emojiGrid) return;
+  
+  // Populate emoji grid
+  emojis.forEach(emoji => {
+    const emojiItem = document.createElement('div');
+    emojiItem.className = 'emoji-item';
+    emojiItem.textContent = emoji;
+    emojiItem.addEventListener('click', () => {
+      insertEmoji(emoji);
+    });
+    emojiGrid.appendChild(emojiItem);
+  });
+}
+
+function insertEmoji(emoji) {
+  if (!chatInput) return;
+  
+  const start = chatInput.selectionStart;
+  const end = chatInput.selectionEnd;
+  const text = chatInput.value;
+  
+  chatInput.value = text.substring(0, start) + emoji + text.substring(end);
+  chatInput.focus();
+  chatInput.setSelectionRange(start + emoji.length, start + emoji.length);
+  
+  // Close emoji picker
+  if (emojiPicker) {
+    emojiPicker.classList.remove('show');
+  }
+}
+
+function toggleEmojiPicker() {
+  if (emojiPicker) {
+    emojiPicker.classList.toggle('show');
+  }
+}
+
+// Emoji picker event listeners
+if (emojiBtn) {
+  emojiBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleEmojiPicker();
+  });
+}
+
+if (closeEmojiPicker) {
+  closeEmojiPicker.addEventListener('click', () => {
+    if (emojiPicker) {
+      emojiPicker.classList.remove('show');
+    }
+  });
+}
+
+// Close emoji picker when clicking outside
+document.addEventListener('click', (e) => {
+  if (emojiPicker && !emojiPicker.contains(e.target) && e.target !== emojiBtn) {
+    emojiPicker.classList.remove('show');
+  }
+});
+
+// Initialize emoji picker on page load
+initEmojiPicker();
+
+// Initialize notification sound and request permission when joining a room
+if (createRoomBtn) {
+  const originalCreateHandler = createRoomBtn.onclick;
+  createRoomBtn.addEventListener('click', () => {
+    initNotificationSound();
+    requestNotificationPermission();
+  });
+}
+
+if (joinRoomBtn) {
+  const originalJoinHandler = joinRoomBtn.onclick;
+  joinRoomBtn.addEventListener('click', () => {
+    initNotificationSound();
+    requestNotificationPermission();
   });
 }
 
