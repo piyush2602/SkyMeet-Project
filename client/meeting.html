@@ -1203,6 +1203,7 @@
         })();
     </script>
 
+    <!-- DISABLED: Conflicting with app.js toggleCameraBtn handler - was replacing icons with text
     <script>
         (function () {
             let stopBtn = document.querySelector('#toggleCameraBtn') || Array.from(document.querySelectorAll('button')).find(b => /stop\s*video/i.test(b.textContent));
@@ -1264,7 +1265,9 @@
             stopBtn.addEventListener('click', (e) => { e.preventDefault(); toggleCamera(); });
         })();
     </script>
+    -->
 
+    <!-- DISABLED: Conflicting with app.js toggleMicBtn handler - was replacing icons with text
     <script>
         (function () {
             let muteBtn = document.getElementById('toggleMicBtn') || Array.from(document.querySelectorAll('button')).find(b => /mute|unmute/i.test(b.textContent));
@@ -1330,6 +1333,7 @@
             muteBtn.addEventListener('click', (e) => { e.preventDefault(); toggleMute(); });
         })();
     </script>
+    -->
 
     <script>
         // Populate brand initials from sky_user if present
