@@ -231,6 +231,123 @@
       font-weight: 600
     }
 
+    /* Mobile header - hidden on desktop */
+    .mobile-header {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 20px;
+      background: rgba(11, 18, 32, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(8px);
+    }
+
+    /* Hamburger menu button - hidden on desktop, shown on mobile */
+    .hamburger-btn {
+      display: none;
+      width: 44px;
+      height: 44px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger-btn span {
+      width: 20px;
+      height: 2px;
+      background: var(--accent);
+      transition: all 0.3s ease;
+    }
+
+    .hamburger-btn:hover {
+      background: rgba(42, 125, 255, 0.08);
+      border-color: rgba(42, 125, 255, 0.2);
+    }
+
+    /* Mobile menu dropdown */
+    .mobile-menu {
+      position: fixed;
+      top: 60px;
+      right: 0;
+      width: 280px;
+      max-height: 0;
+      overflow: hidden;
+      background: linear-gradient(180deg, #0b1220, #0f1724);
+      border-left: 1px solid rgba(42, 125, 255, 0.15);
+      border-bottom: 1px solid rgba(42, 125, 255, 0.15);
+      border-bottom-left-radius: 12px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      z-index: 10000;
+      backdrop-filter: blur(12px);
+    }
+
+    .mobile-menu.open {
+      max-height: 300px;
+      padding: 12px 0;
+    }
+
+    .mobile-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 24px;
+      color: #e6f0fb;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      font-family: inherit;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .mobile-menu-item:last-child {
+      border-bottom: none;
+    }
+
+    .mobile-menu-item:hover {
+      background: linear-gradient(90deg, rgba(42, 125, 255, 0.15), rgba(42, 125, 255, 0.05));
+      padding-left: 28px;
+    }
+
+    .mobile-menu-item:active {
+      background: rgba(42, 125, 255, 0.2);
+    }
+
+    .mobile-menu-item svg {
+      width: 22px;
+      height: 22px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* Show hamburger on mobile/tablet, hide clock and info button */
+    @media (max-width: 768px) {
+      .hamburger-btn {
+        display: flex;
+      }
+
+      .mobile-header {
+        display: flex;
+      }
+    }
+
     .foot {
       color: var(--muted);
       font-size: 13px
@@ -311,12 +428,46 @@
     /* Tablet and larger mobile devices (Samsung F22, etc) */
     @media (max-width:768px) {
       body {
-        padding: 16px
+        padding: 0;
+        padding-top: 60px;
+        overflow-x: hidden;
+        min-height: 100vh;
+        display: flex;
+        align-items: stretch;
+        justify-content: stretch;
       }
 
       .container {
-        padding: 16px;
-        gap: 20px;
+        padding: 0;
+        gap: 0;
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        min-height: calc(100vh - 60px);
+      }
+
+      .hero {
+        order: 2;
+        padding: 24px 20px;
+        border-radius: 0;
+        min-height: calc(100vh - 60px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0;
+      }
+
+      .card {
+        order: 1;
+        margin: 0;
+        padding: 24px 20px;
+        border-radius: 0;
+        width: 100%;
+        min-height: calc(100vh - 60px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
       }
 
       .logo {
@@ -331,14 +482,6 @@
 
       .subtitle {
         font-size: 14px
-      }
-
-      .hero {
-        padding: 28px 20px;
-      }
-
-      .card {
-        padding: 22px;
       }
 
       .card h3 {
@@ -391,12 +534,21 @@
     /* Small phones */
     @media (max-width:480px) {
       body {
-        padding: 12px
+        padding: 0;
+        padding-top: 60px;
       }
 
       .container {
-        padding: 12px;
-        gap: 16px;
+        padding: 0;
+        gap: 0;
+      }
+
+      .hero {
+        padding: 20px 16px;
+      }
+
+      .card {
+        padding: 20px 16px;
       }
 
       .logo {
@@ -411,14 +563,6 @@
 
       .subtitle {
         font-size: 13px;
-      }
-
-      .hero {
-        padding: 20px 16px;
-      }
-
-      .card {
-        padding: 20px 16px;
       }
 
       .card h3 {
@@ -446,16 +590,59 @@
         font-size: 18px;
       }
     }
+
+    /* Hide aside card on mobile (where hamburger exists) and PWA */
+    @media (max-width: 768px),
+    (display-mode: standalone) {
+      aside.card {
+        display: none;
+      }
+    }
   </style>
 </head>
 
 <body>
+  <!-- Header with hamburger menu for mobile -->
+  <div class="mobile-header">
+    <p></p>
+    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <!-- Mobile menu dropdown -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu-item" id="mobileLoginBtn">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path
+          d="M11 7L9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14z" />
+      </svg>
+      Login
+    </button>
+    <button class="mobile-menu-item" id="mobileSignupBtn">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path
+          d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+      </svg>
+      Sign Up
+    </button>
+    <button class="mobile-menu-item" id="mobileGuestBtn">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path
+          d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
+      </svg>
+      Join as Guest
+    </button>
+  </div>
+
   <div class="container">
 
     <div class="hero">
       <div style="display:flex;align-items:center;justify-content:space-between">
         <div class="brand">
-          <div class="logo">SM</div>
+          <div class="logo"><img src="favicon.png" alt="" class="logo"></div>
           <div>
             <h1 class="title">SkyMeet</h1>
             <div class="subtitle">Lightweight meetings</div>
@@ -500,7 +687,7 @@
 
       <div style="margin-top:14px" class="helper">
         <div class="muted">Need help?</div>
-        <div class="link" id="learnMore">Learn more</div>
+        <div class="link" id="learnMore">Coming soon...</div>
       </div>
     </aside>
   </div>
@@ -531,6 +718,59 @@
   </div>
 
   <!-- Small inline JS wiring (keeps your existing behavior) -->
+  <script>
+    // Mobile menu toggle
+    (function () {
+      const hamburgerBtn = document.getElementById('hamburgerBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const mobileLoginBtn = document.getElementById('mobileLoginBtn');
+      const mobileSignupBtn = document.getElementById('mobileSignupBtn');
+      const mobileGuestBtn = document.getElementById('mobileGuestBtn');
+
+      if (hamburgerBtn && mobileMenu) {
+        // Toggle menu on hamburger click
+        hamburgerBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          mobileMenu.classList.toggle('open');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+          if (mobileMenu.classList.contains('open')) {
+            if (!hamburgerBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+              mobileMenu.classList.remove('open');
+            }
+          }
+        });
+
+        // Mobile menu item actions
+        if (mobileLoginBtn) {
+          mobileLoginBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+            const loginBtn = document.getElementById('loginBtn');
+            if (loginBtn) loginBtn.click();
+          });
+        }
+
+        if (mobileSignupBtn) {
+          mobileSignupBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+            const signupBtn = document.getElementById('signupBtn');
+            if (signupBtn) signupBtn.click();
+          });
+        }
+
+        if (mobileGuestBtn) {
+          mobileGuestBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+            const gotoMeetingBtn = document.getElementById('gotoMeetingBtn');
+            if (gotoMeetingBtn) gotoMeetingBtn.click();
+          });
+        }
+      }
+    })();
+  </script>
+
   <script>
     /* ===== Improved Auth wiring for auth.html =====
        Replaces previous inline script. Validates Sign Up, Log In, and Guest flow.
