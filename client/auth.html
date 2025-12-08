@@ -45,16 +45,15 @@
     }
 
     body {
-      background: radial-gradient(1200px 400px at 10% 10%, rgba(42, 125, 255, 0.06) 0%, transparent 8%),
-        linear-gradient(180deg, var(--bg-1), var(--bg-2));
+      background: #000000;
       color: #e6f0fb;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       padding: 32px;
+      padding-top: 100px;
       box-sizing: border-box;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
     /* container centers card like Zoom landing */
@@ -65,17 +64,57 @@
       grid-template-columns: 1fr 420px;
       gap: 28px;
       align-items: start;
-      align-content: center;
+      margin: 0 auto;
     }
 
     /* hero left */
     .hero {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+      background: #000000;
       border-radius: 16px;
       padding: 34px;
+      padding-top: 180px;
       box-shadow: var(--shadow-1);
-      border: 1px solid rgba(255, 255, 255, 0.03);
+      border: none;
       min-height: 320px;
+      position: relative;
+    }
+
+    .hero .subtitle,
+    .hero .info-block,
+    .hero .info-block p,
+    .hero .info-block ul {
+      color: #ffffff !important;
+    }
+
+    /* Video mockup styling */
+    .video-mockup {
+      position: absolute;
+      right: -480px;
+      top: 0;
+      width: 450px;
+      height: auto;
+      z-index: 10;
+      filter: drop-shadow(0 20px 60px rgba(42, 125, 255, 0.3));
+      pointer-events: none;
+    }
+
+    .video-mockup img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Shift aside card down - positioned below video mockup on desktop */
+    aside.card {
+      margin-top: 550px;
+      background: #000000;
+      border: none;
+      display: none;
+    }
+
+    aside.card .small,
+    aside.card label {
+      color: #ffffff !important;
     }
 
     .brand {
@@ -83,6 +122,15 @@
       align-items: center;
       gap: 16px;
       justify-content: space-between;
+    }
+
+    /* Hide brand and info sections on desktop */
+    @media (min-width: 769px) {
+
+      .brand,
+      .hero-inner {
+        display: none !important;
+      }
     }
 
     .logo {
@@ -247,6 +295,25 @@
       backdrop-filter: blur(8px);
     }
 
+    .mobile-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mobile-header-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 6px;
+    }
+
+    .mobile-header-brand {
+      color: #ffffff;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
     /* Hamburger menu button - hidden on desktop, shown on mobile */
     .hamburger-btn {
       display: none;
@@ -353,6 +420,152 @@
       font-size: 13px
     }
 
+    /* Desktop header - visible on desktop, hidden on mobile */
+    .desktop-header {
+      display: flex;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 48px;
+      background: #000000;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+    }
+
+    .desktop-header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .desktop-header-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      background: linear-gradient(180deg, var(--accent), var(--accent-700));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 20px rgba(26, 95, 232, 0.15);
+    }
+
+    .desktop-header-logo img {
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+    }
+
+    .desktop-header-brand {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+    }
+
+    .desktop-header-nav {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .desktop-header-link {
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .desktop-header-link:hover {
+      color: var(--accent);
+    }
+
+    .desktop-header-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .desktop-header-btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+      font-family: inherit;
+    }
+
+    .desktop-header-btn.login {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .desktop-header-btn.login:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .desktop-header-btn.register {
+      background: linear-gradient(180deg, var(--accent), var(--accent-700));
+      color: #fff;
+      box-shadow: 0 6px 20px rgba(26, 95, 232, 0.15);
+    }
+
+    .desktop-header-btn.register:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(26, 95, 232, 0.25);
+    }
+
+    /* Hide desktop header on mobile */
+    @media (max-width: 768px) {
+      .desktop-header {
+        display: none;
+      }
+    }
+
+    /* Hero tagline section - below desktop header */
+    .hero-tagline-section {
+      position: absolute;
+      left: 48px;
+      top: 0px;
+      max-width: 800px;
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    .hero-tagline-section h1 {
+      font-size: 70px;
+      font-weight: 800;
+      line-height: 1.15;
+      margin: 0 0 20px 0;
+      letter-spacing: -2.5px;
+    }
+
+    .hero-tagline-section h1 .accent {
+      color: var(--accent);
+    }
+
+    .hero-tagline-section h1 .white {
+      color: #fff;
+    }
+
+    .hero-tagline-section .subtitle {
+      font-size: 20px;
+      color: #ffffff;
+      margin: 0;
+      font-weight: 400;
+      line-height: 1.6;
+    }
+
     /* modal */
     .modal-backdrop {
       position: fixed;
@@ -449,18 +662,78 @@
 
       .hero {
         order: 2;
-        padding: 24px 20px;
+        padding: 0;
         border-radius: 0;
-        min-height: calc(100vh - 60px);
+        min-height: auto;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
+        align-items: center;
         margin: 0;
+        background: transparent;
+        box-shadow: none;
+        text-align: center;
+      }
+
+      /* Hide brand and info sections on mobile */
+      .hero .brand,
+      .hero-inner {
+        display: none !important;
+      }
+
+      /* Show video mockup on mobile below header - centered */
+      .video-mockup {
+        display: block;
+        position: static;
+        width: 100%;
+        max-width: 100%;
+        margin: 20px auto 10px auto;
+        opacity: 1;
+        right: auto;
+        bottom: auto;
+        order: 1;
+        text-align: center;
+      }
+
+      .video-mockup img {
+        width: 100%;
+        max-width: 380px;
+        margin: 0 auto;
+        display: block;
+      }
+
+      /* Show hero tagline on mobile below mockup - centered */
+      .hero-tagline-section {
+        display: block !important;
+        position: static;
+        left: auto;
+        top: auto;
+        max-width: 100%;
+        padding: 0 20px;
+        margin: 10px auto 20px auto;
+        order: 2;
+        text-align: center;
+      }
+
+      .hero-tagline-section h1 {
+        font-size: 36px;
+        line-height: 1.2;
+        margin: 0 auto 12px auto;
+        letter-spacing: -1.5px;
+        text-align: center;
+      }
+
+      .hero-tagline-section .subtitle {
+        font-size: 16px;
+        line-height: 1.5;
+        margin: 0 auto;
+        text-align: center;
       }
 
       .card {
         order: 1;
         margin: 0;
+        margin-top: 0 !important;
         padding: 24px 20px;
         border-radius: 0;
         width: 100%;
@@ -602,9 +875,31 @@
 </head>
 
 <body>
+  <!-- Desktop header - visible on desktop only -->
+  <div class="desktop-header">
+    <div class="desktop-header-left">
+      <div class="desktop-header-logo">
+        <img src="favicon.png" alt="SkyMeet Logo">
+      </div>
+      <h2 class="desktop-header-brand">SkyMeet</h2>
+    </div>
+
+    <nav class="desktop-header-nav">
+      <a class="desktop-header-link" id="desktopGuestLink">Join as Guest</a>
+    </nav>
+
+    <div class="desktop-header-actions">
+      <button class="desktop-header-btn login" id="desktopLoginBtn">Login</button>
+      <button class="desktop-header-btn register" id="desktopRegisterBtn">Register</button>
+    </div>
+  </div>
+
   <!-- Header with hamburger menu for mobile -->
   <div class="mobile-header">
-    <p></p>
+    <div class="mobile-header-left">
+      <img src="favicon.png" alt="SkyMeet Logo" class="mobile-header-logo">
+      <span class="mobile-header-brand">SkyMeet</span>
+    </div>
     <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu">
       <span></span>
       <span></span>
@@ -640,6 +935,22 @@
   <div class="container">
 
     <div class="hero">
+      <!-- Hero Tagline Section -->
+      <div class="hero-tagline-section">
+        <h1>
+          <span class="accent">Connect</span><br>
+          <span class="accent">Without Limits.</span> <span class="white">Talk</span><br>
+          <span class="white">Freely with </span><br>
+          <span class="white">SkyMeet.</span>
+        </h1>
+        <p class="subtitle">Your Private & Powerful Video Calling Experience.</p>
+      </div>
+
+      <!-- Video Mockup -->
+      <div class="video-mockup">
+        <img src="video-mockup.png" alt="Video Call Mockup">
+      </div>
+
       <div style="display:flex;align-items:center;justify-content:space-between">
         <div class="brand">
           <div class="logo"><img src="favicon.png" alt="" class="logo"></div>
@@ -767,6 +1078,34 @@
             if (gotoMeetingBtn) gotoMeetingBtn.click();
           });
         }
+      }
+    })();
+
+    // Desktop header event listeners
+    (function () {
+      const desktopLoginBtn = document.getElementById('desktopLoginBtn');
+      const desktopRegisterBtn = document.getElementById('desktopRegisterBtn');
+      const desktopGuestLink = document.getElementById('desktopGuestLink');
+
+      if (desktopLoginBtn) {
+        desktopLoginBtn.addEventListener('click', () => {
+          const loginBtn = document.getElementById('loginBtn');
+          if (loginBtn) loginBtn.click();
+        });
+      }
+
+      if (desktopRegisterBtn) {
+        desktopRegisterBtn.addEventListener('click', () => {
+          const signupBtn = document.getElementById('signupBtn');
+          if (signupBtn) signupBtn.click();
+        });
+      }
+
+      if (desktopGuestLink) {
+        desktopGuestLink.addEventListener('click', () => {
+          const gotoMeetingBtn = document.getElementById('gotoMeetingBtn');
+          if (gotoMeetingBtn) gotoMeetingBtn.click();
+        });
       }
     })();
   </script>

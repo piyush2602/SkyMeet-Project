@@ -1,5 +1,5 @@
 // SkyMeet Service Worker
-const CACHE_NAME = 'skymeet-v24';
+const CACHE_NAME = 'skymeet-v27';
 const urlsToCache = [
   '/',
   '/auth.html',
@@ -10,7 +10,8 @@ const urlsToCache = [
   '/favicon.png',
   '/icon-192.png',
   '/icon-512.png',
-  '/chat-bg.png'
+  '/chat-bg.png',
+  '/video-mockup.png'
 ];
 
 // Install event - cache resources
