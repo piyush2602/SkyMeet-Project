@@ -1,5 +1,3 @@
-<div align="center">
-
 # 🎥 SkyMeet - Video Conferencing Platform
 
 [![Live Demo](https://img.shields.io/badge/Live-Demo-success?style=for-the-badge&logo=render)](https://skymeet-6prd.onrender.com/)
@@ -214,7 +212,8 @@ SkyMeet is deployed on **Render** for production use.
 
 ## 📸 Screenshots
 
-> *Coming soon! Add screenshots of your application in action*
+> <img width="1891" height="820" alt="image" src="https://github.com/user-attachments/assets/7db24823-ad58-4f2b-bed7-7ad2ea9e8147" /><div align="center">
+
 
 ---
 
