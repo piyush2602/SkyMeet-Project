@@ -1,5 +1,5 @@
 // SkyMeet Service Worker
-const CACHE_NAME = 'skymeet-v28';
+const CACHE_NAME = 'skymeet-v29';
 const urlsToCache = [
   '/',
   '/auth.html',

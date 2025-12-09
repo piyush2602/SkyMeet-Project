@@ -110,15 +110,23 @@ io.on('connection', (socket) => {
 
   // Handle chat messages
   socket.on('chat-message', ({ roomId, name, text }) => {
-    if (!roomId || !text) return;
+    console.log(`[Chat] Message received from ${socket.id}:`, { roomId, name, text: text?.substring(0, 50) });
+    
+    if (!roomId || !text) {
+      console.error(`[Chat] Invalid message from ${socket.id}: missing roomId or text`);
+      return;
+    }
     
     // Broadcast to all users in the room (including sender)
-    io.to(roomId).emit('chat-message', {
+    const messageData = {
       senderId: socket.id,
       name: name || 'Guest',
       text: text,
       time: Date.now()
-    });
+    };
+    
+    io.to(roomId).emit('chat-message', messageData);
+    console.log(`[Chat] Message broadcasted to room ${roomId}:`, messageData.text.substring(0, 50));
   });
 
   // Handle file sharing
