@@ -104,12 +104,12 @@
       display: block;
     }
 
-    /* Shift aside card down - positioned below video mockup on desktop */
+    /* Hide aside card on all screen types */
     aside.card {
       margin-top: 550px;
       background: #000000;
       border: none;
-      display: none;
+      display: none !important;
     }
 
     aside.card .small,
@@ -404,8 +404,8 @@
       flex-shrink: 0;
     }
 
-    /* Show hamburger on mobile/tablet, hide clock and info button */
-    @media (max-width: 768px) {
+    /* Show hamburger on mobile/tablet - same header for both mobile and tablet */
+    @media (max-width: 1024px) {
       .hamburger-btn {
         display: flex;
       }
@@ -525,8 +525,8 @@
       box-shadow: 0 8px 24px rgba(26, 95, 232, 0.25);
     }
 
-    /* Hide desktop header on mobile */
-    @media (max-width: 768px) {
+    /* Hide desktop header on mobile and tablet */
+    @media (max-width: 1024px) {
       .desktop-header {
         display: none;
       }
@@ -620,8 +620,8 @@
       min-height: 32px;
     }
 
-    /* small responsive */
-    @media (max-width:980px) {
+    /* small responsive - mobile only */
+    @media (max-width:768px) {
       .container {
         grid-template-columns: 1fr;
         padding: 18px;
@@ -635,6 +635,90 @@
       .card {
         order: 1;
         width: 100%
+      }
+    }
+
+    /* Tablet view - use desktop layout but keep mobile header (same as mobile) */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      /* Mobile header is already visible via max-width: 1024px media query above */
+      /* No header-specific styles here - uses same mobile header styles */
+      body {
+        padding-top: 60px;
+      }
+
+      .container {
+        grid-template-columns: 1fr 420px;
+        gap: 28px;
+        padding: 32px;
+        max-width: 1100px;
+        align-items: start;
+      }
+
+      .hero {
+        order: 1;
+        padding: 34px;
+        padding-top: 180px;
+      }
+
+      .card {
+        order: 2;
+        width: auto;
+      }
+
+      /* Show hero tagline and video mockup like desktop */
+      .hero-tagline-section {
+        display: block !important;
+        position: absolute;
+        left: 48px;
+        top: 0px;
+        max-width: 800px;
+        z-index: 100;
+        pointer-events: none;
+      }
+
+      .hero-tagline-section h1 {
+        font-size: 70px;
+        font-weight: 800;
+        line-height: 1.15;
+        margin: 0 0 20px 0;
+        letter-spacing: -2.5px;
+      }
+
+      .hero-tagline-section .subtitle {
+        font-size: 20px;
+        color: #ffffff;
+        margin: 0;
+        font-weight: 400;
+        line-height: 1.6;
+      }
+
+      .video-mockup {
+        display: block;
+        position: absolute;
+        right: -480px;
+        top: 0;
+        width: 450px;
+        height: auto;
+        z-index: 10;
+        filter: drop-shadow(0 20px 60px rgba(42, 125, 255, 0.3));
+        pointer-events: none;
+      }
+
+      .video-mockup img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      /* Hide brand and info sections on tablet (like desktop) */
+      .hero .brand,
+      .hero-inner {
+        display: none !important;
+      }
+
+      /* Hide aside card on tablet (same as all screens) */
+      aside.card {
+        display: none !important;
       }
     }
 
@@ -868,7 +952,7 @@
     @media (max-width: 768px),
     (display-mode: standalone) {
       aside.card {
-        display: none;
+        display: none !important;
       }
     }
   </style>
