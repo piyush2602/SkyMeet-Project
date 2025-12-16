@@ -176,7 +176,7 @@
     input[type="text"] {
       display: block;
       width: 100%;
-      padding: 12px 14px;
+      padding: 10px 7px;
       margin-top: 8px;
       border-radius: 10px;
       border: 1px solid rgba(8, 25, 46, 0.06);
@@ -242,6 +242,20 @@
     .btn.secondary:hover {
       background: rgba(26, 115, 232, 0.06);
       transform: translateY(-2px);
+    }
+
+    .btn.green {
+      background: linear-gradient(180deg, #10b981, #059669);
+      color: #fff;
+      border: 0;
+      padding: 12px 20px;
+      box-shadow: var(--shadow-2);
+    }
+
+    .btn.green:hover {
+      background: linear-gradient(180deg, #059669, #047857);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
     }
 
     /* small subtle focus ring for accessibility */
@@ -392,7 +406,7 @@
       }
 
       input[type="text"] {
-        padding: 10px 12px;
+        padding: 8px 12px;
         font-size: 14px;
       }
 
@@ -404,7 +418,8 @@
       }
 
       .btn.primary,
-      .btn.secondary {
+      .btn.secondary,
+      .btn.green {
         width: 100%;
         padding: 11px 18px;
         font-size: 14px;
@@ -431,7 +446,7 @@
       }
 
       input[type="text"] {
-        padding: 9px 11px;
+        padding: 10px 5px;
         font-size: 13px;
       }
 
@@ -583,7 +598,7 @@
 
           <div class="buttons-row">
             <button id="createRoomBtn" class="btn primary">Create Room</button>
-            <button id="joinRoomBtn" class="btn secondary">Join Room</button>
+            <button id="joinRoomBtn" class="btn green">Join Room</button>
           </div>
         </section>
       </main>
