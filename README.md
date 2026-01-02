@@ -217,25 +217,6 @@ SkyMeet is deployed on **Render** for production use.
 
 ---
 
-## 🗺️ Roadmap
-
-- [x] Basic video/audio calling
-- [x] Room creation and joining
-- [x] Mute/unmute controls
-- [x] Camera on/off controls
-- [x] User authentication
-- [ ] Screen sharing capability
-- [ ] In-meeting text chat
-- [ ] Recording functionality
-- [ ] Virtual backgrounds
-- [ ] Breakout rooms
-- [ ] Meeting scheduling
-- [ ] Mobile app (React Native)
-
-See the [open issues](https://github.com/piyush2602/SkyMeet-Project/issues) for a full list of proposed features and known issues.
-
----
-
 ## 📧 Author
 
 **Piyush** - [@piyush2602](https://github.com/piyush2602)
